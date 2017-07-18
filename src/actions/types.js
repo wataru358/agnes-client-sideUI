@@ -1,0 +1,12 @@
+export const DEFAULT = 'DEFAULT';
+export const TEXT_BODY_UPDATE = 'TEXT_BODY_UPDATE';
+export const TEXT_INPUT_CHANGE = 'TEXT_INPUT_CHANGE';
+export const TAB_KEY = 'TAB_KEY';
+export const UPDATE_ACTIVETREE = 'UPDATE_ACTIVETREE';
+export const INSERT_BRANCH = 'INSERT_BRANCH';
+export const REMOVE_BRANCH = 'REMOVE_BRANCH';
+export const MOVE_BRANCH = 'MOVE_BRANCH';
+export const CLOSE_BRANCH = 'CLOSE_BRANCH';
+export const OPEN_BRANCH = 'OPEN_BRANCH';
+
+export const GET_FILENAME = 'GET_FILENAME';

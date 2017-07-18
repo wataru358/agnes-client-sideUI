@@ -1,0 +1,123 @@
+.titlehere {
+  white-space: pre;
+}
+.treeHolder {
+width: 100%;
+white-space: nowrap;
+display: inline-flex;
+}
+.treeHolder:focus :global {
+  outline:none
+}
+
+.treeUL {
+  /*display: block;*/
+  font-size: 16px;
+  line-height: 180%;
+  /*padding-left: 24px;*/
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+}
+.treeLI {
+  white-space: nowrap;
+  display: block;
+
+  width: 100%;
+  color: rgba(157,165,175,0.8);
+    overflow-y: hidden;
+
+transition:all 0.10s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.treeLI:focus :global {
+  outline:0
+}
+
+.treeLI[data-open-state="no"] :global ul {
+
+  height: 0;
+
+}
+
+.treeLItitle {
+    display: flex;
+    align-items: center;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+  	transition:all 0.10s cubic-bezier(0.645, 0.045, 0.355, 1);
+    padding-right: 8px;
+}
+.treeLItitle::after :global {
+  display: block;
+  content:" ";
+  height: 16px;
+  flex: 0 0 16px;
+}
+.treeLItitle[data-active="yes"] :global,
+.treeLItitle:hover[data-active="yes"] :global {
+  color: #fff;
+  background-color:rgba(49,54,64,1);
+
+
+}
+.treeLItitle:hover :global {
+  background-color:rgba(39,44,54,1);
+}
+.treeButton,
+.treeButton2 {
+  display: none;
+
+  justify-content: center;
+  align-items: center;
+
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+
+  margin-right: 0;
+
+  position: relative;
+
+
+  transition:background-color 0.10s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.treeButton[data-display="active"] :global,
+.treeButton2[data-display="active"] :global {
+  display: inline-flex;
+}
+.treeButton2 {
+    pointer-events: none;
+}
+
+.treeButton:hover :global {
+    background-color:rgba(49,54,64,1);
+}
+.treeLI :global i.fa   {
+  display: none;
+  font-size: 75%;
+  transition: none;
+
+  pointer-events: none;
+
+}
+.treeLI :global i.fa[data-display="active"] {
+  display: inline-block;;
+}
+.treeLI :global i.fa.fa-chevron-right,
+.treeLI :global i.fa.fa-chevron-down {
+  margin-right:0;
+  font-size: 60%;
+}
+.treePaddingBox {
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}

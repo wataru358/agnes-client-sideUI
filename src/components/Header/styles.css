@@ -1,0 +1,19 @@
+.mainHeader {
+
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    width: 100vw;
+    height:48px;
+
+    font-size: 18px;
+
+    background-color: #1F252B;
+    color: #A5A5A5;
+
+    border-bottom:1px solid rgba(13,17,22,1);
+
+}

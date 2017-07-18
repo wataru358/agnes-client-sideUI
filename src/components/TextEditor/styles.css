@@ -1,0 +1,21 @@
+.plainTexteditor {
+  width: 100%;
+  min-width: 800px;
+  height: calc(100% - 20px);
+
+  border:0;
+  outline: 0;
+
+  background-color: transparent;
+  font-size: 24px;
+  color: #fff;
+
+  resize: none;
+
+  word-break: break-all;
+
+}
+.plainTexteditor:focus {
+  border:0;
+  outline: 0;
+}
