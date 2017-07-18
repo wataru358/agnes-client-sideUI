@@ -16,7 +16,7 @@ class TwoPanes extends React.Component {
 
   }
   conponentDidMount() {
-    console.log('TwoPanels did mount');
+    //console.log('TwoPanels did mount');
   }
   dragStart(e){
     if(e.buttons = 1) {
