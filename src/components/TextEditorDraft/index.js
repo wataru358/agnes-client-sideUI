@@ -68,7 +68,7 @@ class TextEditorDraftComponent extends React.Component {
 
   }
   _onKeyUp(e) {
-    console.log('_onKeyUp');
+    //console.log('_onKeyUp');
     //props.onTextUpdate(this.state.editorState.getCurrentContent().getPlainText())
   }
   _onTab(e) {
@@ -78,7 +78,7 @@ class TextEditorDraftComponent extends React.Component {
     //console.log(e.key);
     //console.log(RichUtils.onTab(e, this.state.editorState, maxDepth))
     //this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
-    const tabCharacter = "    ";
+    const tabCharacter = "  ";
     let currentState = this.state.editorState;
     let newContentState = Modifier.replaceText(
        currentState.getCurrentContent(),
@@ -116,8 +116,7 @@ class TextEditorDraftComponent extends React.Component {
             ref="editor"
           />
         </div>
-        <div className={styles.editorBtm}>{'('+this.props.textBodies[this.props.activeBranch].length.toString()+')'}</div>
-
+        <div className={styles.editorBtm}>{'['+this.props.textBodies[this.props.activeBranch].length.toString()+']'}</div>
 
       </div>
     )

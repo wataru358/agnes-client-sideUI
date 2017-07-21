@@ -7,10 +7,12 @@ import TreeNav from '../TreeNav'
 
 const HeaderComponent = (props) => (
   <header className={styles.mainHeader}>
+    <div className={styles.headerInfo}>
+      {
+        props.fileName /*+ ' : ' + props.activeBranch */
+      }
+    </div>
     <TreeNav />
-    {
-      props.fileName + ' : ' + props.activeBranch
-    }
   </header>
 );
 

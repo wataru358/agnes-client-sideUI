@@ -134,54 +134,6 @@ export const generateNewBranch = (branchType, tree, activeBranch) => {
   }
 
 
-
-  /*function getNewTree(tree, newBranchObj, targetParentID, targetIndex) {
-    //console.log('getNewTree...:');
-    //console.log(tree.children);
-    if (targetParentID === 'tree_root') {
-      return insertBranchImmutably(tree, newBranchObj, targetIndex);
-    } else {
-      return {
-        ...tree,
-        children: tree.children.map( ( branch ) => {
-            //console.log('iterating...: ', branch.tr_id);
-            //console.log('targetParentID: ', targetParentID);
-            //console.log('targetIndex: ', targetIndex);
-            if(branch.tr_id === targetParentID) {
-              //console.log(branch.tr_id + ' === ' +  targetParentID);
-              return {
-                ...branch,
-                ...insertBranchImmutably(branch, newBranchObj, targetIndex),
-                openState:true
-              }
-
-            } else if (branch.children.length) {
-              return {
-                ...branch,
-                ...getNewTree(branch, newBranchObj, targetParentID, targetIndex)
-              }
-            } else {
-              return branch
-            }
-
-
-          }
-        )
-      }
-    }
-  }*/
-
-  /*function insertBranchImmutably(obj, newBranchObj, targetIndex) {
-
-    //console.log('insertBranchImmutably, targetIndex is: ', targetIndex);
-    //console.log(tree.slice(0,targetIndex));
-    //console.log(newBranchObj);
-    //console.log(...tree.slice(targetIndex));
-    return {
-      ...obj,
-      children: [...obj.children.slice(0,targetIndex), newBranchObj, ...obj.children.slice(targetIndex)]
-    }
-  }*/
 }
 const getNewTree =(tree, newBranchObj, targetParentID, targetIndex) => {
   //console.log('getNewTree...:');

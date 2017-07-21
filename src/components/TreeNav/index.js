@@ -86,31 +86,27 @@ const TreeNavComponent = (props) => (
       </li>
 
 
-
-    </ul>
-
-    <ul className={styles.treeNavUL}>
-      <li className={styles.treeNavLI + ' ' + styles.sml}>
+      <li className={styles.treeNavLI}>
         <button
-          className={styles.treeNavButton + ' ' + styles.sml}
+          className={styles.treeNavButton}
           onClick={(e) => props.makePrevActive(e, props.tree, props.activeBranch)}
           >
 
           <i className={'fa fa-caret-up ' + styles.moveUpIcon}></i>
         </button>
       </li>
-      <li className={styles.treeNavLI + ' ' + styles.sml}>
+      <li className={styles.treeNavLI}>
         <button
-          className={styles.treeNavButton + ' ' + styles.sml}
+          className={styles.treeNavButton}
           onClick={(e) => props.makeNextActive(e, props.tree, props.activeBranch)}
           >
 
           <i className={'fa fa-caret-down ' + styles.moveDownIcon}></i>
         </button>
       </li>
-      <li className={styles.treeNavLI + ' ' + styles.sml}>
+      <li className={styles.treeNavLI}>
         <button
-          className={styles.treeNavButton + ' ' + styles.sml}
+          className={styles.treeNavButton}
           onClick={(e) => props.toggleBranch(e, props.tree, props.activeBranch)}
 
           >
@@ -122,9 +118,7 @@ const TreeNavComponent = (props) => (
 
         </button>
       </li>
-    </ul>
 
-    <ul className={styles.treeNavUL}>
       <li className={styles.treeNavLI}>
         <button
           className={styles.treeNavButton}
@@ -135,9 +129,6 @@ const TreeNavComponent = (props) => (
         </button>
       </li>
 
-    </ul>
-
-    <ul className={styles.treeNavUL}>
 
       <li className={styles.treeNavLI}>
         <button
@@ -180,11 +171,10 @@ const TreeNavComponent = (props) => (
           <i className={'fa fa-minus fa-rotate-90 ' + styles.rightSub4b}></i>
         </button>
       </li>
-    </ul>
-    <ul className={styles.treeNavUL}>
-      <li className={styles.treeNavLI + ' ' + styles.sml}>
+
+      <li className={styles.treeNavLI}>
         <button
-          className={styles.treeNavButton + ' ' + styles.sml}
+          className={styles.treeNavButton}
 
           >
 
@@ -193,14 +183,28 @@ const TreeNavComponent = (props) => (
       </li>
       <li className={styles.treeNavLI}>
         <button
-          className={styles.treeNavButton + ' ' + styles.lrg}
+          className={styles.treeNavButton}
 
           >
 
 
-          <span className={'devicons devicons-markdown'}>
+          <i className="fa fa-eye" aria-hidden="true"></i>
 
-          </span>
+
+        </button>
+      </li>
+    </ul>
+    <ul className={styles.treeNavUL + ' ' + styles.right}>
+      <li className={styles.treeNavLI}>
+        <button
+          className={styles.treeNavButton}
+
+          >
+
+
+          <i className="fa fa-cog" aria-hidden="true"></i>
+
+
         </button>
       </li>
     </ul>

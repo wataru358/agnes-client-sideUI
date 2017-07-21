@@ -17,14 +17,82 @@ import {
   appDescription_treeArray
 } from './dummy';
 
-const treeStateDummy = {
-  activeBranch:'tr_0',
-  tree:{
-    tr_id:'tree_root',
-    children:constructTree(appDescription_treeArray)
-  },
-  textBodies:constructTextBodies(appDescription_treeArray)
+// getNewBranch here is just to
+// inject temp initial state.
+const getNewBranch = (tr_id,children) => {
+  var newBranch = {
+    tr_id
+  }
+  if(Array.isArray(children)){
+    newBranch.children = children;
+  } else if(typeof children !== 'undefined') {
+    newBranch.children = [children];
+  } else {
+    newBranch.children = [];
+  }
+
+  newBranch.openState = true;
+
+  return newBranch
 }
+
+var dummyNode1_3_1 = getNewBranch('tr_6666666666666666');
+
+var dummyNode1_1 = getNewBranch('tr_88888');
+var dummyNode1_2 = getNewBranch('tr_88889');
+var dummyNode1_3 = getNewBranch('tr_88855',dummyNode1_3_1);
+var dummyNode1_4 = getNewBranch('tr_88858');
+
+var dummyRoot1 = getNewBranch('tr_99999');
+var dummyRoot2 = getNewBranch('tr_99997',[dummyNode1_1,dummyNode1_2,dummyNode1_3,dummyNode1_4]);
+var dummyRoot3 = getNewBranch('tr_99996');
+var dummyRoot4 = getNewBranch('tr_99995');
+
+const textBodiesDummie = {
+  tr_6666666666666666:'this is tr_6666666666666666',
+  tr_88888:'what I researched \n a lot of ideas \n sample',
+  tr_88889:'my great ideas',
+  tr_88855:'You can toggle me, open and close',
+  tr_88858:'rolf rolf',
+  tr_99999:'chapter 1. \n dblfdlkaklfdakljfda',
+  tr_99997:'I have child text. you can toggle',
+  tr_99996:'you can edit',
+  tr_99995:'edit text right side'
+}
+
+/*
+console.log('-----------');
+console.log('getNewBranch:');
+console.log(getNewBranch('tree_root', [
+  dummyRoot1,
+  dummyRoot2,
+  dummyRoot3,
+  dummyRoot4
+]));
+console.log('-----------');
+console.log('textBodiesDummie:');
+console.log(textBodiesDummie);
+console.log('-----------');
+console.log('constructTextBodies(appDescription_treeArray): ');
+console.log(constructTextBodies(appDescription_treeArray));
+console.log('-----------');
+console.log('constructTree(appDescription_treeArray): ');
+console.log(constructTree(appDescription_treeArray));
+*/
+
+/*
+const treeStateDummy = {
+  activeBranch:'tr_88888',
+  tree:getNewBranch('tree_root', [
+    dummyRoot1,
+    dummyRoot2,
+    dummyRoot3,
+    dummyRoot4
+  ]),
+  textBodies:textBodiesDummie
+}
+*/
+
 /*
 return {
   type: toggleTo,
@@ -39,6 +107,8 @@ const toggleBranchState = (state, targetID, openOrClose) => {
   //console.log(processBranches(state.tree.children, targetID, openOrClose))
   //console.log(targetID, openOrClose);
   return processBranches(state.tree.children, targetID, openOrClose)
+
+
 
   function processBranches(children, targetID, openOrClose) {
     return children.map( branch => {

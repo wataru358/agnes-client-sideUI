@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/reducers/dummy.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/reducers</a> dummy.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>40/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>40/40</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// dummy json
+export const appDescription_treeArray = [
+  {
+    id:'tr_0',
+    text:'About Agnes Outline Processor\nThis is a repo for UI development phase of an outline processor, named Agnes.\nYou can edit right here.',
+    children:[]
+  },
+  {
+    id:'tr_1',
+    text:'How to\nThe interface is pretty intuitive.\nPlease play with the header menu. When focusing (clicking) on left "tree", try using arrow keys to navigate, open and close items.',
+    children:[
+      {
+        id:'tr_1_0',
+        text:'Edit text\nyou can edit text right here!\nRemember, the first line of the text will always become the "title" of the item on the left tree.',
+        children:[]
+      },
+      {
+        id:'tr_1_1',
+        text:'Add item\nYou can use "plus &amp; allow" icons to add items, as younger or older siblings, or as a child.',
+        children:[]
+      },
+      {
+        id:'tr_1_2',
+        text:'Remove item\nYou can use "document &amp; X" icon to remove item.',
+        children:[]
+      },
+      {
+        id:'tr_1_3',
+        text:'Move item\nYou can use "document &amp; arrow" icons to move items up, down, as well as left and right.',
+        children:[]
+      },
+      {
+        id:'tr_1_4',
+        text:'Collapse and Open item with child(ren)\nYou can use "circle &amp; chevron right &amp; down" icon to toggle open / close (collapse) status of the item with children.',
+        children:[]
+      },
+      {
+        id:'tr_1_5',
+        text:'Move highlight on the left tree\nYou can use "caret up" and "caret down" icon.',
+        children:[]
+      }
+    ]
+  },
+  {
+    id:'tr_2',
+    text:'Motivation\n\nWhen I was looking for an outline editor on Mac, there was none that satisfy my needs.\n\nThey were all great, but either they have too many features or lack specific features I wanted.\n\nBasically I wanted those three things.\n\nA. No distinction with title and content\n    B. Easy two pane layout\nC. Nothing more\n\n(on the UI at first glance. More features should be hidden so that they won\'t distract users)\n\nThese are the same features I got from Nami2000, a legendary outline editor for Windows 98.\nI just wanted it on Mac. :)\n',
+    children:[]
+  },
+  {
+    id:'tr_3',
+    text:'Special Thanks\n\nhttp://www.geocities.jp/my_ultraseven/mozart/_start.htm',
+    children:[]
+  }
+&nbsp;
+]
+&nbsp;
+&nbsp;
+export const constructTextBodies = (treeArray) =&gt; {
+  let r = {};
+  for(let i = 0; i &lt; treeArray.length; i++) {
+    r[treeArray[i].id] = treeArray[i].text;
+    if (treeArray[i].children.length &gt; 0) {
+      r = {...r, ...constructTextBodies(treeArray[i].children)}
+    }
+  }
+  return r;
+}
+&nbsp;
+export const constructTree = (treeArray) =&gt; {
+  let r = [];
+&nbsp;
+  for(let i = 0; i &lt; treeArray.length; i++) {
+    r[i] = createOneBranch(treeArray[i].id, treeArray[i].children);
+  }
+&nbsp;
+  return r;
+}
+const createOneBranch = (tr_id, children) =&gt; {
+  let branch = {
+    tr_id
+  }
+  if(children.length == 0) {
+    branch.children = children
+  } else <span class="missing-if-branch" title="else path not taken" >E</span>if(children.length &gt; 0) {
+    branch.children = constructTree(children)
+  }
+  return branch
+}
+&nbsp;
+&nbsp;
+// getNewBranch here is just to
+// inject temp initial state.
+const getNewBranch = (tr_id,children) =&gt; {
+  var newBranch = {
+    tr_id
+  }
+  if(Array.isArray(children)){
+    newBranch.children = children;
+  } else if(typeof children !== 'undefined') {//means children is "a child"
+    newBranch.children = [children];
+  } else {
+    newBranch.children = [];
+  }
+&nbsp;
+  newBranch.openState = true;
+&nbsp;
+  return newBranch
+}
+&nbsp;
+var dummyNode1_3_1 = getNewBranch('tr_6666666666666666');
+&nbsp;
+var dummyNode1_1 = getNewBranch('tr_88888');
+var dummyNode1_2 = getNewBranch('tr_88889');
+var dummyNode1_3 = getNewBranch('tr_88855',dummyNode1_3_1);
+var dummyNode1_4 = getNewBranch('tr_88858');
+&nbsp;
+var dummyRoot1 = getNewBranch('tr_99999');
+var dummyRoot2 = getNewBranch('tr_99997',[dummyNode1_1,dummyNode1_2,dummyNode1_3,dummyNode1_4]);
+var dummyRoot3 = getNewBranch('tr_99996');
+var dummyRoot4 = getNewBranch('tr_99995');
+&nbsp;
+const textBodiesDummie = {
+  tr_6666666666666666:'this is tr_6666666666666666',
+  tr_88888:'what I researched \n a lot of ideas \n sample',
+  tr_88889:'my great ideas',
+  tr_88855:'You can toggle me, open and close',
+  tr_88858:'rolf rolf',
+  tr_99999:'chapter 1. \n dblfdlkaklfdakljfda',
+  tr_99997:'I have child text. you can toggle',
+  tr_99996:'you can edit',
+  tr_99995:'edit text right side'
+}
+&nbsp;
+export const treeStateDummy = {
+  activeBranch:'tr_99996',
+  tree:getNewBranch('tree_root', [
+    dummyRoot1,
+    dummyRoot2,
+    dummyRoot3,
+    dummyRoot4
+  ]),
+  textBodies:textBodiesDummie
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 18 2017 15:58:45 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

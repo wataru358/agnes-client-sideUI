@@ -13,9 +13,9 @@ test('App should be a Provider from react-redux', () => {
   const wrapper = shallow(
     <App />
   );
-  console.log(wrapper);
-  console.log(Provider);
-  expect(1).toBe(1);
+
+  // sample test.
+  expect(wrapper.node.type).toBe(Provider);
   //expect(App).toBeInstanceOf(Provider)
 
 });
