@@ -15,8 +15,6 @@ import {
 
 // @todo
 // [ ] separate actions into different files
-// [x] use types instead of string
-
 
 
 export const textBodyUpdate = (textBody) => {
@@ -27,12 +25,14 @@ export const textBodyUpdate = (textBody) => {
     }
   }
 }
+//@Todo: delete textAreaUpdate
 export const textAreaUpdate = (e) => {
   return {
     type:TEXT_INPUT_CHANGE,
     value:e.target.value
   }
 }
+//@Todo: old
 export const textAreaTab = (e) => {
   return {
     type:TAB_KEY,
@@ -49,7 +49,11 @@ export const updateActiveTree = (id) => {
   }
 }
 
-const getRandomStr = (l) => {
+// @todo: export for testing purpose.
+// this would become a part of actions, which is not the greatest sin
+// but not recommended.
+// should consider the way we export stuff from here
+export const getRandomStr = (l) => {
     var t = ''
         ,c = "abcdefghijklmnopqrstuvwxyz0123456789"
         ;

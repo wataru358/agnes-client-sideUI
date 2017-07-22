@@ -260,7 +260,11 @@
 215
 216
 217
-218</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+218
+219
+220
+221
+222</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -351,10 +355,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -375,22 +375,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -425,6 +409,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -436,6 +431,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -565,31 +573,27 @@ const TreeNavComponent = <span class="fstat-no" title="function not covered" >(p
       &lt;/li&gt;
 &nbsp;
 &nbsp;
-&nbsp;
-    &lt;/ul&gt;
-&nbsp;
-    &lt;ul className={styles.treeNavUL}&gt;
-      &lt;li className={styles.treeNavLI + ' ' + styles.sml}&gt;
+      &lt;li className={styles.treeNavLI}&gt;
         &lt;button
-          className={styles.treeNavButton + ' ' + styles.sml}
+          className={styles.treeNavButton}
           onClick={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >props.makePrevActive(e, props.tree, props.activeBranch)}</span>
           &gt;
 &nbsp;
           &lt;i className={'fa fa-caret-up ' + styles.moveUpIcon}&gt;&lt;/i&gt;
         &lt;/button&gt;
       &lt;/li&gt;
-      &lt;li className={styles.treeNavLI + ' ' + styles.sml}&gt;
+      &lt;li className={styles.treeNavLI}&gt;
         &lt;button
-          className={styles.treeNavButton + ' ' + styles.sml}
+          className={styles.treeNavButton}
           onClick={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >props.makeNextActive(e, props.tree, props.activeBranch)}</span>
           &gt;
 &nbsp;
           &lt;i className={'fa fa-caret-down ' + styles.moveDownIcon}&gt;&lt;/i&gt;
         &lt;/button&gt;
       &lt;/li&gt;
-      &lt;li className={styles.treeNavLI + ' ' + styles.sml}&gt;
+      &lt;li className={styles.treeNavLI}&gt;
         &lt;button
-          className={styles.treeNavButton + ' ' + styles.sml}
+          className={styles.treeNavButton}
           onClick={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >props.toggleBranch(e, props.tree, props.activeBranch)}</span>
 &nbsp;
           &gt;
@@ -601,9 +605,7 @@ const TreeNavComponent = <span class="fstat-no" title="function not covered" >(p
 &nbsp;
         &lt;/button&gt;
       &lt;/li&gt;
-    &lt;/ul&gt;
 &nbsp;
-    &lt;ul className={styles.treeNavUL}&gt;
       &lt;li className={styles.treeNavLI}&gt;
         &lt;button
           className={styles.treeNavButton}
@@ -614,9 +616,6 @@ const TreeNavComponent = <span class="fstat-no" title="function not covered" >(p
         &lt;/button&gt;
       &lt;/li&gt;
 &nbsp;
-    &lt;/ul&gt;
-&nbsp;
-    &lt;ul className={styles.treeNavUL}&gt;
 &nbsp;
       &lt;li className={styles.treeNavLI}&gt;
         &lt;button
@@ -659,11 +658,10 @@ const TreeNavComponent = <span class="fstat-no" title="function not covered" >(p
           &lt;i className={'fa fa-minus fa-rotate-90 ' + styles.rightSub4b}&gt;&lt;/i&gt;
         &lt;/button&gt;
       &lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;ul className={styles.treeNavUL}&gt;
-      &lt;li className={styles.treeNavLI + ' ' + styles.sml}&gt;
+&nbsp;
+      &lt;li className={styles.treeNavLI}&gt;
         &lt;button
-          className={styles.treeNavButton + ' ' + styles.sml}
+          className={styles.treeNavButton}
 &nbsp;
           &gt;
 &nbsp;
@@ -672,14 +670,28 @@ const TreeNavComponent = <span class="fstat-no" title="function not covered" >(p
       &lt;/li&gt;
       &lt;li className={styles.treeNavLI}&gt;
         &lt;button
-          className={styles.treeNavButton + ' ' + styles.lrg}
+          className={styles.treeNavButton}
 &nbsp;
           &gt;
 &nbsp;
 &nbsp;
-          &lt;span className={'devicons devicons-markdown'}&gt;
+          &lt;i className="fa fa-eye" aria-hidden="true"&gt;&lt;/i&gt;
 &nbsp;
-          &lt;/span&gt;
+&nbsp;
+        &lt;/button&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul className={styles.treeNavUL + ' ' + styles.right}&gt;
+      &lt;li className={styles.treeNavLI}&gt;
+        &lt;button
+          className={styles.treeNavButton}
+&nbsp;
+          &gt;
+&nbsp;
+&nbsp;
+          &lt;i className="fa fa-cog" aria-hidden="true"&gt;&lt;/i&gt;
+&nbsp;
+&nbsp;
         &lt;/button&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -700,7 +712,7 @@ export default TreeNav
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 18 2017 15:58:45 GMT-0700 (PDT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 22 2017 10:56:40 GMT-0700 (PDT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
