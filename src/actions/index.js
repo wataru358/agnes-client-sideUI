@@ -686,7 +686,7 @@ function getPrevSibDownwords(branch) {
 
 
 export const getNextBranch = (tree, activeBranch) => {//to do: name e no longer suitable. come up with proper name
-  //console.log('getNextBranch...:');
+  // console.log('getNextBranch...activeBranch :',activeBranch);
 
 
 
@@ -730,6 +730,15 @@ export const getNextBranch = (tree, activeBranch) => {//to do: name e no longer 
 }
 function getNextSibUpwords(tree, parent) {
 
+  if(parent.tr_id === 'tree_root'){
+    //console.log('getNextSibUpwords...parent.tr_id', parent.tr_id)
+
+    // we could do directly return DEFAULT
+    return {
+      type:DEFAULT
+    }
+  }
+
   var parentData = getBranchPath(tree, parent.tr_id),
 
       nextUncle = getNextSiblingWithPath(tree, parentData.path);
@@ -746,7 +755,15 @@ function getNextSibUpwords(tree, parent) {
     }
   } else {
     var grandParent = getParentWithPath(tree, parentData.path);
-    //console.log('grandParent...: ',grandParent.tr_id);
+    // console.log('grandParent...: ',grandParent.tr_id);
+
+    /*if(grandParent.tr_id === 'tree_root') {
+      return {
+        type:DEFAULT
+      }
+    } else {
+      return getNextSibUpwords(tree, grandParent);
+    }*/
     return getNextSibUpwords(tree, grandParent);
   }
 }
