@@ -352,7 +352,18 @@ export const moveBranch = (direction, tree, activeBranch) => {
     }
 
   } else if('down' === direction) {
-    if(path[path.length - 1] === parent.children.length){//if you are the youngest child, no more downword.
+
+    /*console.log(
+      'activeBranch: ', activeBranch,
+      '\npath.length - 1: ', path.length - 1,
+      '\npath[path.length - 1]: ', path[path.length - 1],
+      '\nparent.children.length: ', parent.children.length,
+      '\npath: ', path
+    )*/
+
+    // if you are the youngest child, no more downword.
+    // this condition seems
+    if(path[path.length - 1] === parent.children.length - 1){
       return {
         type:DEFAULT
       }
@@ -369,7 +380,6 @@ export const moveBranch = (direction, tree, activeBranch) => {
       }
     }
   }
-
 
   return {
     type:DEFAULT

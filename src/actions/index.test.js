@@ -165,22 +165,215 @@ describe('generateNewBranch', () => {
   it('should return the actions with proper tree, activeBranchID', () => {
 
     // r1
-    expect(r1.type).toBe(INSERT_BRANCH);
+    expect(r1.type).toEqual(INSERT_BRANCH);
     expect(r1.value.tree.children.length).toBe(arrayLengthA_expected);
     expect(r1.value.tree.children[0].tr_id).toBe(root_firstChildID_expected);
     expect(r1.value.activeBranch).not.toBe(activeBranch_not_expected);
 
     // r2
-    expect(r2.type).toBe(INSERT_BRANCH);
+    expect(r2.type).toEqual(INSERT_BRANCH);
     expect(r2.value.tree.children.length).toBe(arrayLengthA_expected);
     expect(r2.value.tree.children[0].tr_id).not.toBe(root_firstChildID_not_expected);
     expect(r2.value.activeBranch).not.toBe(activeBranch_not_expected);
 
     // r3
-    expect(r3.type).toBe(INSERT_BRANCH);
+    expect(r3.type).toEqual(INSERT_BRANCH);
     expect(r3.value.tree.children[0].children.length).toBe(arrayLengthB_expected);
     expect(r3.value.tree.children[0].tr_id).toBe(root_firstChildIDB_expected);
     expect(r3.value.activeBranch).not.toBe(activeBranch_not_expected);
   });
 
+});
+
+describe('removeKeyFromObj', () => {
+
+  const testObj = {
+    foo:'foo',
+    bar:'bar'
+  }
+  const expected = {
+    foo:'foo'
+  }
+
+  const r = actions.removeKeyFromObj(testObj,'bar');
+
+  it('return object with the key property removed', () => {
+    expect(r).toEqual(expected);
+  });
+
+});
+
+describe('removeBranch', () => {
+
+  const dummyTree = {
+    tr_id:'tree_root',
+    children:constructTree(appDescription_treeArray)
+  };
+  const dummyBodies = constructTextBodies(appDescription_treeArray)
+
+  // @note: activeBranch is going to be removed.
+  const activeBranch1 = dummyTree.children[0].tr_id;
+  const activeBranch2 = dummyTree.children[1].children[0].tr_id;
+  const activeBranch3 = dummyTree.children[3].tr_id;
+  const activeBranch4 = dummyTree.children[3].children[0].tr_id;
+
+  const r1 = actions.removeBranch(dummyTree, dummyBodies, activeBranch1);
+  const r2 = actions.removeBranch(dummyTree, dummyBodies, activeBranch2);
+  const r3 = actions.removeBranch(dummyTree, dummyBodies, activeBranch3);
+  const r4 = actions.removeBranch(dummyTree, dummyBodies, activeBranch4);
+
+
+  it('should return action w/ REMOVE_BRANCH, value containing new textBodies and tree w/ target branch removed', () => {
+
+    // r1
+    expect(r1.type).toEqual(REMOVE_BRANCH);
+
+    // textBodies
+    expect(r1.value.textBodies)
+      .not.toHaveProperty(activeBranch1, dummyBodies[activeBranch1]);
+
+    // activeBranch
+    expect(r1.value.activeBranch)
+      .toBe(dummyTree.children[1].tr_id);
+
+    // tree
+    expect(r1.value.tree).not
+      .toEqual(expect.arrayContaining([dummyTree.children[0]]));
+    expect(r1.value.tree.children.length)
+      .toBe(dummyTree.children.length - 1);
+
+    // r2
+    expect(r2.type).toEqual(REMOVE_BRANCH);
+    expect(r2.value.textBodies)
+      .not.toHaveProperty(activeBranch2, dummyBodies[activeBranch2]);
+    expect(r2.value.activeBranch)
+      .toBe(dummyTree.children[1].children[1].tr_id);
+    expect(r2.value.tree.children[1].children).not
+      .toEqual(expect.arrayContaining([dummyTree.children[1].children]));
+    expect(r2.value.tree.children[1].children.length)
+      .toBe(dummyTree.children[1].children.length - 1);
+
+    // r3
+    expect(r3.type).toEqual(REMOVE_BRANCH);
+    expect(r3.value.textBodies)
+      .not.toHaveProperty(activeBranch3, dummyBodies[activeBranch3]);
+    expect(r3.value.activeBranch)
+      .toBe(dummyTree.children[2].tr_id);
+    expect(r3.value.tree.children).not
+      .toEqual(expect.arrayContaining([dummyTree.children[3]]));
+    expect(r3.value.tree.children.length)
+      .toBe(dummyTree.children.length - 1);
+
+    // r4
+    expect(r4.type).toEqual(REMOVE_BRANCH);
+    expect(r4.value.textBodies)
+      .not.toHaveProperty(activeBranch4, dummyBodies[activeBranch4]);
+    expect(r4.value.activeBranch)
+      .toBe(dummyTree.children[3].tr_id);
+    expect(r4.value.tree.children[3].children).not
+      .toEqual(expect.arrayContaining([dummyTree.children[3].children[0]]));
+    expect(r4.value.tree.children[3].children.length)
+      .toBe(dummyTree.children[3].children.length - 1);
+
+  });
+
+});
+
+describe('moveBranch', () => {
+
+  const dummyTree = {
+    tr_id:'tree_root',
+    children:constructTree(appDescription_treeArray)
+  };
+
+  const activeBranch1 = dummyTree.children[0].tr_id;
+  const activeBranch2 = dummyTree.children[1].children[0].tr_id;
+  const activeBranch3 = dummyTree.children[3].tr_id;
+  const activeBranch4 = dummyTree.children[3].children[0].tr_id;
+
+  const directionLeft = 'left';
+  const directionRight = 'right';
+  const directionUp = 'up';
+  const directionDown = 'down';
+
+  const r1_left = actions.moveBranch(directionLeft, dummyTree, activeBranch1);
+  const r1_right = actions.moveBranch(directionRight, dummyTree, activeBranch1);
+  const r1_up = actions.moveBranch(directionUp, dummyTree, activeBranch1);
+  const r1_down = actions.moveBranch(directionDown, dummyTree, activeBranch1);
+
+  const r2_left = actions.moveBranch(directionLeft, dummyTree, activeBranch2);
+  const r2_right = actions.moveBranch(directionRight, dummyTree, activeBranch2);
+  const r2_up = actions.moveBranch(directionUp, dummyTree, activeBranch2);
+  const r2_down = actions.moveBranch(directionDown, dummyTree, activeBranch2);
+
+  const r3_left = actions.moveBranch(directionLeft, dummyTree, activeBranch3);
+  const r3_right = actions.moveBranch(directionRight, dummyTree, activeBranch3);
+  const r3_up = actions.moveBranch(directionUp, dummyTree, activeBranch3);
+  const r3_down = actions.moveBranch(directionDown, dummyTree, activeBranch3);
+
+  const r4_left = actions.moveBranch(directionLeft, dummyTree, activeBranch4);
+  const r4_right = actions.moveBranch(directionRight, dummyTree, activeBranch4);
+  const r4_up = actions.moveBranch(directionUp, dummyTree, activeBranch4);
+  const r4_down = actions.moveBranch(directionDown, dummyTree, activeBranch4);
+
+
+  it('should return action w/ MOVE_BRANCH with new tree(branch moved) or DEFAULT', () => {
+
+    // r1
+    expect(r1_left.type).toEqual(DEFAULT);
+    expect(r1_right.type).toEqual(DEFAULT);
+    expect(r1_up.type).toEqual(DEFAULT);
+
+    expect(r1_down.type).toEqual(MOVE_BRANCH);
+    expect(r1_down.value.children[1].tr_id).toBe(activeBranch1);
+
+    // r2
+    expect(r2_left.type).toEqual(MOVE_BRANCH);
+    expect(r2_left.value.children[2].tr_id).toBe(activeBranch2);
+
+    expect(r2_right.type).toEqual(DEFAULT);
+
+    expect(r2_up.type).toEqual(DEFAULT);
+
+    expect(r2_down.type).toEqual(MOVE_BRANCH);
+    expect(r2_down.value.children[1].children[1].tr_id).toBe(activeBranch2);
+
+    // r3
+    expect(r3_left.type).toEqual(DEFAULT);
+
+    expect(r3_right.type).toEqual(MOVE_BRANCH);
+    expect(r3_right.value.children[2].children[0].tr_id).toBe(activeBranch3);
+
+    expect(r3_up.type).toEqual(MOVE_BRANCH);
+    expect(r3_up.value.children[2].tr_id).toBe(activeBranch3);
+
+    expect(r3_down.type).toEqual(DEFAULT);
+
+    // r4
+    expect(r4_left.type).toEqual(MOVE_BRANCH);
+    expect(r4_left.value.children[4].tr_id).toBe(activeBranch4);
+
+  });
+
+});
+
+describe('treeKeyDown', () => {
+  const dummyTree = {
+    tr_id:'tree_root',
+    children:constructTree(appDescription_treeArray)
+  };
+
+  const activeBranch = dummyTree.children[0].tr_id;
+
+  const obj1 = {
+    key:'foo'
+  }
+
+  const r1 = actions.treeKeyDown(obj1, dummyTree, activeBranch);
+
+  it('should return action to manipulate tree, or DEFAULT', () => {
+
+    expect(r1.type).toEqual(DEFAULT);
+
+  });
 });
