@@ -49,7 +49,13 @@ export const appDescription_treeArray = [
   {
     id:'tr_3',
     text:'Special Thanks\n\nhttp://www.geocities.jp/my_ultraseven/mozart/_start.htm',
-    children:[]
+    children:[
+      {
+        id:'tr_3_0',
+        text:'This is test text',
+        children:[]
+      }
+    ]
   }
 
 ]
