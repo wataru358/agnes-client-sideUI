@@ -8,3 +8,7 @@ cd agnes-client-side
 npm install
 npm run serve
 ```
+To test (with Jest):
+```
+npm run test
+```
