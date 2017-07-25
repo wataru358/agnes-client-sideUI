@@ -357,7 +357,7 @@ describe('moveBranch', () => {
 
 });
 
-describe('treeKeyDown (and getPrevBranch, getNextBranch, openBranch, closeBranch)', () => {
+describe('treeKeyDown (getPrevBranch, getNextBranch)', () => {
   const dummyTree = {
     tr_id:'tree_root',
     children:constructTree(appDescription_treeArray)
@@ -378,12 +378,6 @@ describe('treeKeyDown (and getPrevBranch, getNextBranch, openBranch, closeBranch
   const obj2 = {
     key:'ArrowDown'
   };
-  const obj3 = {
-    key:'ArrowLeft'
-  };
-  const obj4 = {
-    key:'ArrowRight'
-  };
 
   const r0 = actions.treeKeyDown(obj0, dummyTree, activeBranch1);
 
@@ -398,15 +392,7 @@ describe('treeKeyDown (and getPrevBranch, getNextBranch, openBranch, closeBranch
   const r2_4 = actions.treeKeyDown(obj2, dummyTree, activeBranch4);
   const r2_5 = actions.treeKeyDown(obj2, dummyTree, activeBranch5);
 
-  const r3_1 = actions.treeKeyDown(obj3, dummyTree, activeBranch1);
-  const r3_2 = actions.treeKeyDown(obj3, dummyTree, activeBranch2);
-  const r3_3 = actions.treeKeyDown(obj3, dummyTree, activeBranch3);
-  const r3_4 = actions.treeKeyDown(obj3, dummyTree, activeBranch4);
 
-  const r4_1 = actions.treeKeyDown(obj4, dummyTree, activeBranch1);
-  const r4_2 = actions.treeKeyDown(obj4, dummyTree, activeBranch2);
-  const r4_3 = actions.treeKeyDown(obj4, dummyTree, activeBranch3);
-  const r4_4 = actions.treeKeyDown(obj4, dummyTree, activeBranch4);
 
   it('should return action to manipulate tree, or DEFAULT', () => {
 
@@ -440,10 +426,63 @@ describe('treeKeyDown (and getPrevBranch, getNextBranch, openBranch, closeBranch
     expect(r2_5.type).toEqual(UPDATE_ACTIVETREE);
     expect(r2_5.value.targetID).toBe(dummyTree.children[2].tr_id);
 
-    // r3
-    // @todo
 
-    // r4
-    // @todo 
+    // @todo
   });
 });
+
+describe('treeKeyDown (openBranch, closeBranch)', () => {
+
+  const dummyTree = {
+    tr_id:'tree_root',
+    children:constructTree(appDescription_treeArray)
+  };
+
+
+  const activeBranch1 = dummyTree.children[0].tr_id;
+  const activeBranch2 = dummyTree.children[1].tr_id;
+  const activeBranch3 = dummyTree.children[2].tr_id;
+  const activeBranch4 = dummyTree.children[3].tr_id;
+
+  dummyTree.children[1].openState = false;
+
+  const obj3 = {
+    key:'ArrowLeft'
+  };
+  const obj4 = {
+    key:'ArrowRight'
+  };
+
+  const r3_1 = actions.treeKeyDown(obj3, dummyTree, activeBranch1);
+  const r3_2 = actions.treeKeyDown(obj3, dummyTree, activeBranch2);
+  const r3_3 = actions.treeKeyDown(obj3, dummyTree, activeBranch3);
+  const r3_4 = actions.treeKeyDown(obj3, dummyTree, activeBranch4);
+
+  const r4_1 = actions.treeKeyDown(obj4, dummyTree, activeBranch1);
+  const r4_2 = actions.treeKeyDown(obj4, dummyTree, activeBranch2);
+  const r4_3 = actions.treeKeyDown(obj4, dummyTree, activeBranch3);
+  const r4_4 = actions.treeKeyDown(obj4, dummyTree, activeBranch4);
+
+
+
+  it('should return action to manipulate tree, or DEFAULT', () => {
+    // r3
+    expect(r3_1.type).toEqual(DEFAULT);
+
+    expect(r3_2.type).toEqual(OPEN_BRANCH);
+    expect(r3_2.value.targetID).toBe(activeBranch2);
+
+    expect(r3_3.type).toEqual(DEFAULT);
+    expect(r3_4.type).toEqual(DEFAULT);
+
+    // r4
+    expect(r4_1.type).toEqual(DEFAULT);
+    expect(r4_2.type).toEqual(DEFAULT);
+    expect(r4_3.type).toEqual(DEFAULT);
+
+    expect(r4_4.type).toEqual(CLOSE_BRANCH);
+    expect(r4_4.value.targetID).toBe(activeBranch4);
+
+  });
+
+})
