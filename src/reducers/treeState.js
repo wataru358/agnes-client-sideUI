@@ -191,7 +191,7 @@ const treeState = (state = treeStateDummy, action) => {
         }
       }
 
-    default:
+    default: // == case DEFAULT
       return state
   }
 }
@@ -247,6 +247,7 @@ function toggleBranch(state, targetID) {
 
 }*/
 
+// @todo: confirm below is not in use and delete it
 const editText = (state = '', action) => {
   switch (action.type) {
     case TEXT_INPUT_CHANGE:
