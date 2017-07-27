@@ -25,15 +25,7 @@ const treeStateDummy = {
   },
   textBodies:constructTextBodies(appDescription_treeArray)
 }
-/*
-return {
-  type: toggleTo,
-  value: {
-    targetID: targetID,
-    focusCurrent: ( toggleTo === 'CLOSE_BRANCH' && activeChildFlag ) ? true : false
-  }
-}
-*/
+
 
 const toggleBranchState = (state, targetID, openOrClose) => {
   //console.log(processBranches(state.tree.children, targetID, openOrClose))
@@ -108,7 +100,7 @@ const treeState = (state = treeStateDummy, action) => {
           ...action.value
         }
       }
-    case REMOVE_BRANCH:
+    case REMOVE_BRANCH://REMOVE_BRANCH needs activeTree updated, whereis MOVE_BRANCH does not
       return {
         ...state,
         ...action.value
@@ -121,44 +113,12 @@ const treeState = (state = treeStateDummy, action) => {
           [state.activeBranch]:action.value
         }
       }
-    case TAB_KEY:
-    // get caret position/selection
-      var val = action.value.target.value,
-         start = action.value.target.selectionStart,
-         end = action.value.target.selectionEnd;
-
-      // set textarea value to: text before caret + tab + text after caret
-
-      var newText = val.substring(0, start) + '\t' + val.substring(end);
-
-      action.value.target.selectionStart = action.value.target.selectionEnd = start + 1;
-
-      return {
-        ...state,
-        textBodies:{
-          ...state.textBodies,
-          [state.activeBranch]:newText
-        }
-      }
-
-
-    /*case 'TOGGLE_BRANCH':
-      return toggleBranch(state, action.value)*/
-
-    /*return {
-      type:'INSERT_BRANCH',
-      value: {
-        tree: getNewTree(tree, getNewBranchObj(newID), targetParentID, targetIndex),
-        activeBranch:newID
-      }
-
-    }*/
 
     case INSERT_BRANCH:
       //focusBranch(action.value.activeBranch);
       return {
         ...state,
-        tree:action.value.tree,
+        tree: { ...action.value.tree },
         activeBranch:action.value.activeBranch,
         textBodies:{
           ...state.textBodies,
@@ -192,83 +152,6 @@ const treeState = (state = treeStateDummy, action) => {
       }
 
     default: // == case DEFAULT
-      return state
-  }
-}
-/*function focusBranch(id) {
-  document.getElementById(id).focus();
-}*/
-
-/*
-function toggleBranch(state, targetID) {
-  //console.log(state)
-  var activeBranch,
-  activeChildFlag,
-  tree = processBranches(state.tree);
-
-  console.log(activeChildFlag);
-  return {
-    ...state,
-    tree:tree,
-    activeBranch: activeChildFlag ? targetID : state.activeBranch
-  }
-
-  function processBranches(tree) {
-    //console.log(tree)
-    return tree.map( (branch, index) => {
-        if(branch.tr_id === targetID) {
-          if(branch.openState && 0 < branch.children.length){
-            activeChildFlag = checkIfActiveChild(branch.children);
-          }
-          return {
-            ...branch, openState:branch.openState ? false : true
-          }
-        } else if(branch.hasChildren){
-          return {
-            ...branch, children:processBranches(branch.children,targetID)
-          }
-        } else {
-          return branch
-        }
-    })
-  }
-  function checkIfActiveChild(tree){
-    return tree.some(branch => {
-        if(branch.tr_id === state.activeBranch) {
-            return true
-        }  else if (0 < branch.children.length){
-            return checkIfActiveChild(branch.children);
-        }
-        return false;
-      })
-
-  }
-
-
-}*/
-
-// @todo: confirm below is not in use and delete it
-const editText = (state = '', action) => {
-  switch (action.type) {
-    case TEXT_INPUT_CHANGE:
-      return {
-        textBody:action.value
-      }
-    case TAB_KEY:
-
-         // get caret position/selection
-        var val = action.target.value,
-            start = action.target.selectionStart,
-            end = action.target.selectionEnd;
-
-         // set textarea value to: text before caret + tab + text after caret
-
-        var newState = val.substring(0, start) + '\t' + val.substring(end);
-
-        action.target.selectionStart = action.target.selectionEnd = start + 1;
-
-        return newState
-    default:
       return state
   }
 }
