@@ -6,7 +6,6 @@ import App from './App';
 
 
 test('App should be a Provider from react-redux', () => {
-  // Render a checkbox with label in the document
   // @Note: Do not use same name as the component tested
   // i.e., this won't work;
   // ```const App = shallow(<App />)```
@@ -16,6 +15,5 @@ test('App should be a Provider from react-redux', () => {
 
   // sample test.
   expect(wrapper.node.type).toBe(Provider);
-  //expect(App).toBeInstanceOf(Provider)
-
+  
 });

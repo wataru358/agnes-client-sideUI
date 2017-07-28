@@ -1,5 +1,3 @@
-import React from 'react';
-import { mount, shallow } from 'enzyme';
 import {
   DEFAULT,
   TEXT_BODY_UPDATE,
@@ -10,8 +8,7 @@ import {
   REMOVE_BRANCH,
   MOVE_BRANCH,
   CLOSE_BRANCH,
-  OPEN_BRANCH,
-  GET_FILENAME
+  OPEN_BRANCH
 } from '../actions/types';
 
 import {

@@ -5,7 +5,7 @@ import styles from './styles.css'
 import TreeNav from '../TreeNav'
 
 
-const HeaderComponent = (props) => (
+export const HeaderComponent = (props) => (
   <header className={styles.mainHeader}>
     <div className={styles.headerInfo}>
       {
