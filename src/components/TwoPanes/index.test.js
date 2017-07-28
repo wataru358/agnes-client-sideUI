@@ -2,13 +2,13 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import store from '../../store';
-import Header from './index';
+import TwoPanes from './index';
 
-describe('<Header />', () => {
+describe('<TwoPanes />', () => {
 
   const wrapper = shallow(
     <Provider store={store}>
-        <Header />
+        <TwoPanes />
     </Provider>
   );
   it('should render the header', () => {
