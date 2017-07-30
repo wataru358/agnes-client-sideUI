@@ -4,3 +4,4 @@ dist
 devnote.txt
 coverage
 npm-debug.log
+src/components/TextEditorAce

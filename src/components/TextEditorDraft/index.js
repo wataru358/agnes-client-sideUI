@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {Editor, EditorState, ContentState, Modifier} from 'draft-js';
 import styles from './styles.css'
 import * as actions from '../../actions'
+import deepEqual from 'deep-equal'
 
 const mapStateToProps = (state, ownProps) => {
   return state.treeState
@@ -30,46 +31,98 @@ class TextEditorDraftComponent extends React.Component {
     super(props);
     //console.log('constructor:')
     this.state = {
-      editorState: EditorState.createWithContent(ContentState.createFromText(props.textBodies[props.activeBranch]))
+      editorState: EditorState.createWithContent(ContentState.createFromText(props.textBodies[props.activeBranch])),
+      lineCount:props.textBodies[props.activeBranch].split(/\r\n|\r|\n/).length,
+      lineHeightArray:[]
     }
+
     this._activeBranch = props.activeBranch;
     //this.activeBranch =
     //this.state = {editorState: EditorState.createEmpty() };
     this.onChange = (editorState) => {
+      console.log('onChange');
+      const textValue = editorState.getCurrentContent().getPlainText();
+      this.setState({
+        editorState,
+        lineCount:textValue.split(/\r\n|\r|\n/).length
+      });
 
-      this.setState({editorState});
-
-      props.onTextUpdate(editorState.getCurrentContent().getPlainText());
+      props.onTextUpdate(textValue);
 
     }
     this.focus = () => this.refs.editor.focus();
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.onTab = (e) => this._onTab(e);
-    this.onKeyUp = (e) => this._onKeyUp(e);
+
+    this.watchGutterHeight = this._watchGutterHeight.bind(this);
+
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    //console.log('shouldComponentUpdate:', nextProps, nextState);
+
+  componentDidMount(){
+    //this.watchGutterHeight();
+    let dataBlockDoms = document.querySelectorAll('div[data-block="true"]')
+    //console.log(dataBlockDoms);
+    let lineHeightArray = [];
+
+    for(let i = 0; dataBlockDoms.length > i; i++){
+      lineHeightArray[i] = dataBlockDoms[i].clientHeight / 30;
+    }
+    this.setState({
+      lineHeightArray:lineHeightArray
+    });
+
+    // start watch process
+    optimizedResize.add(this.watchGutterHeight);
+    return true
+  }
+  /*shouldComponentUpdate(nextProps, nextState) {
+
+    return true
+  }*/
+  componentDidUpdate() {
+    this.watchGutterHeight();
     return true
   }
   componentWillReceiveProps(nextProps, nextState) {
-    //console.log('componentWillReceiveProps:');
+    console.log('componentWillReceiveProps:');
     //console.log(nextProps.activeBranch, this._activeBranch);
     //console.log(nextProps.textBodies[nextProps.activeBranch]);
-    //this.props.onTextUpdate(this.state.editorState.getCurrentContent().getPlainText());
-
     if(nextProps.activeBranch!==this._activeBranch){
       this._activeBranch = nextProps.activeBranch;
-      this.state = {editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))}
-    } /*else {
-      console.log('blur focus')
-      this.refs.editor.blur()
-      this.refs.editor.focus()
-    }*/
+      //this.state = {editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))}
+      this.setState({
+        editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))
+
+      });
+
+    }
+
 
   }
-  _onKeyUp(e) {
-    //console.log('_onKeyUp');
-    //props.onTextUpdate(this.state.editorState.getCurrentContent().getPlainText())
+  // @todo:
+  // this is anti pattern.
+  // should not rely on dom state...
+  // but right now, no way arround.
+  _watchGutterHeight(){
+    let dataBlockDoms = document.querySelectorAll('div[data-block="true"]')
+    //console.log(dataBlockDoms);
+    let lineHeightArray = [];
+
+    for(let i = 0; dataBlockDoms.length > i; i++){
+      lineHeightArray[i] = dataBlockDoms[i].clientHeight / 30;
+    }
+    //console.log('_watchGutterHeight: ',lineHeightArray);
+    //console.log(lineHeightArray);
+    //console.log(this.state.lineHeightArray);
+
+    let test = deepEqual(lineHeightArray, this.state.lineHeightArray)
+    //console.log(test);
+    if(!test) {
+      this.setState({
+        lineHeightArray:lineHeightArray
+      });
+    }
+
   }
   _onTab(e) {
     //console.log('_onTab:');
@@ -104,17 +157,29 @@ class TextEditorDraftComponent extends React.Component {
   render(){
     return (
       <div className={styles.editorOuter}>
-        <div className={styles.editorHolder} onClick={this.focus}>
-          <Editor
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-            onPaste={this.onPaste}
-            onKeyup={this.onKeyUp}
-            stripPastedStyles={true}
-            tabIndex="2"
-            onTab={this.onTab}
-            ref="editor"
-          />
+        <div className={styles.editorHolder} ref="editorHolder" onClick={this.focus}>
+          <div
+            className={styles.editorGutter}
+            ref="gutter"
+
+          >
+          {
+              writeLineCount(this.state.lineHeightArray)
+          }
+
+          </div>
+          <div className={styles.editorWrapper}>
+            <Editor
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+              onPaste={this.onPaste}
+              stripPastedStyles={true}
+              tabIndex="2"
+              onTab={this.onTab}
+              ref="editor"
+            />
+          </div>
+
         </div>
         <div className={styles.editorBtm}>{'['+this.props.textBodies[this.props.activeBranch].length.toString()+']'}</div>
 
@@ -157,6 +222,86 @@ function handleTab(e, editorState) {
 
     return Draft.EditorState.push(editorState, newContentState, 'insert-characters');
 }
+
+function writeLineCount(lineHeightArray) {
+  //console.log('gutterHeight:', gutterHeight);
+  //let count = Math.floor(gutterHeight / 30);
+  //console.log(count);
+  let lines = [];
+  for (let i = 0; i < lineHeightArray.length; i++) {
+    lines.push(
+      <div
+        className={styles.editorGutterOneLine}
+        key={"line_"+i}
+        style={
+          {
+            height:(lineHeightArray[i] * 30) + "px"
+          }
+        }
+      >
+          <span className={styles.editorGutterSpan} key={"line_span_"+i}>
+            {i+1}
+          </span>
+      </div>
+    );
+  }
+  //console.log(lines);
+  return (
+    <div>{lines}</div>
+  )
+}
+
+var optimizedResize = (function() {
+
+    var callbacks = [],
+        running = false;
+
+    // fired on resize event
+    function resize() {
+
+        if (!running) {
+            running = true;
+
+            if (window.requestAnimationFrame) {
+                window.requestAnimationFrame(runCallbacks);
+            } else {
+                setTimeout(runCallbacks, 66);
+            }
+        }
+
+    }
+
+    // run the actual callbacks
+    function runCallbacks() {
+
+        callbacks.forEach(function(callback) {
+            callback();
+        });
+
+        running = false;
+    }
+
+    // adds callback to loop
+    function addCallback(callback) {
+
+        if (callback) {
+            callbacks.push(callback);
+        }
+
+    }
+
+    return {
+        // public method to add additional callback
+        add: function(callback) {
+            if (!callbacks.length) {
+                window.addEventListener('resize', resize);
+            }
+            addCallback(callback);
+        }
+    }
+}());
+
+
 
 /*handleKeyCommand={this.handleKeyCommand}*/
 const TextEditorDraft = connect(
