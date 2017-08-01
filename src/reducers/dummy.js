@@ -56,6 +56,72 @@ export const appDescription_treeArray = [
         children:[]
       }
     ]
+  },
+  {
+    id:'tr_4',
+    text:'Sample Usage ',
+    children:[
+    ]
+  },
+  {
+    id:'tr_5',
+    text:'Planning A Movie Plot',
+    children:[
+      {
+        id:'tr_5_0',
+        text:'Opening - Space Ship',
+        children:[
+          {
+            id:'tr_5_0_0',
+            text:'Shooting inside the Space Ship',
+            children:[
+
+            ]
+          },
+          {
+            id:'tr_5_0_1',
+            text:'R2D2 and 3PO are being given the instructions by Princess Leia',
+            children:[
+
+            ]
+          },
+          {
+            id:'tr_5_0_2',
+            text:'Robots are able to escape the ship using the evacuation pod',
+            children:[
+
+            ]
+          },
+          {
+            id:'tr_5_0_3',
+            text:'Darth Vader overpowers rebels, captures the Princess',
+            children:[
+
+            ]
+          }
+        ]
+      },
+      {
+        id:'tr_5_1',
+        text:'Planet Tatooine',
+        children:[
+          {
+            id:'tr_5_1_0',
+            text:'Luke Skywaker appears; has arguments with his Uncle',
+            children:[
+
+            ]
+          },
+          {
+            id:'tr_5_1_1',
+            text:'Luke Skywaker and the Uncle are going to...',
+            children:[
+
+            ]
+          }
+        ]
+      },
+    ]
   }
 
 ]
