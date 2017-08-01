@@ -258,7 +258,7 @@ describe('removeBranch', () => {
     expect(r3.value.textBodies)
       .not.toHaveProperty(activeBranch3, dummyBodies[activeBranch3]);
     expect(r3.value.activeBranch)
-      .toBe(dummyTree.children[2].tr_id);
+      .toBe(dummyTree.children[4].tr_id);
     expect(r3.value.tree.children).not
       .toEqual(expect.arrayContaining([dummyTree.children[3]]));
     expect(r3.value.tree.children.length)
@@ -347,7 +347,8 @@ describe('moveBranch', () => {
     expect(r3_up.type).toEqual(MOVE_BRANCH);
     expect(r3_up.value.children[2].tr_id).toBe(activeBranch3);
 
-    expect(r3_down.type).toEqual(DEFAULT);
+    expect(r3_down.type).toEqual(MOVE_BRANCH);
+    expect(r3_down.value.children[4].tr_id).toBe(activeBranch3);
 
     // r4
     expect(r4_left.type).toEqual(MOVE_BRANCH);
@@ -366,8 +367,8 @@ describe('treeKeyDown (getPrevBranch, getNextBranch)', () => {
   const activeBranch1 = dummyTree.children[0].tr_id;
   const activeBranch2 = dummyTree.children[1].children[0].tr_id;
   const activeBranch3 = dummyTree.children[3].tr_id;
-  const activeBranch4 = dummyTree.children[3].children[0].tr_id;
-  const activeBranch5 = dummyTree.children[1].children[dummyTree.children[1].children.length -1].tr_id;
+  const activeBranch4 = dummyTree.children[dummyTree.children.length - 1].children[0].tr_id;
+  const activeBranch5 = dummyTree.children[1].children[dummyTree.children[1].children.length - 1].tr_id;
 
   const obj0 = {
     key:'foo'
@@ -409,7 +410,7 @@ describe('treeKeyDown (getPrevBranch, getNextBranch)', () => {
     expect(r1_3.value.targetID).toBe(dummyTree.children[2].tr_id);
 
     expect(r1_4.type).toEqual(UPDATE_ACTIVETREE);
-    expect(r1_4.value.targetID).toBe(dummyTree.children[3].tr_id);
+    expect(r1_4.value.targetID).toBe(dummyTree.children[5].tr_id);
 
     // r2
     expect(r2_1.type).toEqual(UPDATE_ACTIVETREE);
@@ -421,7 +422,8 @@ describe('treeKeyDown (getPrevBranch, getNextBranch)', () => {
     expect(r2_3.type).toEqual(UPDATE_ACTIVETREE);
     expect(r2_3.value.targetID).toBe(dummyTree.children[3].children[0].tr_id);
 
-    expect(r2_4.type).toEqual(DEFAULT);
+    expect(r2_4.type).toEqual(UPDATE_ACTIVETREE);
+    expect(r2_4.value.targetID).toBe(dummyTree.children[dummyTree.children.length - 1].children[0].children[0].tr_id);
 
     expect(r2_5.type).toEqual(UPDATE_ACTIVETREE);
     expect(r2_5.value.targetID).toBe(dummyTree.children[2].tr_id);
