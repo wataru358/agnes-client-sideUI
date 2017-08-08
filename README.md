@@ -3,8 +3,8 @@
 This is UI Development repo for an Outline Editor, which will be an Electron app.
 
 ```
-git clone https://github.com/wataru358/agnes-client-side
-cd agnes-client-side
+git clone https://github.com/wataru358/agnes-client-sideUI
+cd agnes-client-sideUI
 npm install
 npm run serve
 ```
