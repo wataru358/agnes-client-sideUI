@@ -6,7 +6,10 @@ import * as actions from '../../actions'
 import deepEqual from 'deep-equal'
 
 const mapStateToProps = (state, ownProps) => {
-  return state.treeState
+  return {
+    ...state.treeState,
+    ...state.globalUIState
+  }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -73,6 +76,9 @@ class TextEditorDraftComponent extends React.Component {
 
     // start watch process
     optimizedResize.add(this.watchGutterHeight);
+
+    //focus
+    this.refs.editor.focus();
     return true
   }
   /*shouldComponentUpdate(nextProps, nextState) {
@@ -84,7 +90,7 @@ class TextEditorDraftComponent extends React.Component {
     return true
   }
   componentWillReceiveProps(nextProps, nextState) {
-    console.log('componentWillReceiveProps:');
+    //console.log('componentWillReceiveProps:');
     //console.log(nextProps.activeBranch, this._activeBranch);
     //console.log(nextProps.textBodies[nextProps.activeBranch]);
     if(nextProps.activeBranch!==this._activeBranch){
@@ -95,6 +101,10 @@ class TextEditorDraftComponent extends React.Component {
 
       });
 
+    }
+    if(this.props.searchBarDisplayed === true && nextProps.searchBarDisplayed === false) {
+      //console.log('searchBar Closed')
+      this.refs.editor.focus();
     }
 
 
@@ -156,7 +166,14 @@ class TextEditorDraftComponent extends React.Component {
   }
   render(){
     return (
-      <div className={styles.editorOuter}>
+      <div
+        className={styles.editorOuter}
+        style={
+          {
+            height: this.props.searchBarDisplayed ? 'calc(100% - 80px)' : '100%'
+          }
+        }
+        >
         <div className={styles.editorHolder} ref="editorHolder" onClick={this.focus}>
           <div
             className={styles.editorGutter}

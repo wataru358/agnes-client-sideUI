@@ -22,10 +22,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onTreeKeyDown:(e,tree,activeBranch)=>{
       //console.log('onBranchKeyDown:', activeBranch);
-      e.stopPropagation();
-      if(e.key === 'ArrowUp' ||e.key ===  'ArrowDown' ||e.key ===  'ArrowLeft' ||e.key ===  'ArrowRight') {
+      //e.stopPropagation();
+      //console.log(e.key, e.altKey, e.metaKey)
+      //if( ((e.key === 'f' && e.metaKey) || (e.key === 'f' && e.ctrlKey)) || e.key === 'ArrowUp' ||e.key ===  'ArrowDown' ||e.key ===  'ArrowLeft' ||e.key ===  'ArrowRight') {
+      if( e.key === 'ArrowUp' ||
+          e.key ===  'ArrowDown' ||
+          e.key ===  'ArrowLeft' ||
+          e.key ===  'ArrowRight') {
         //console.log('prevent')
         e.preventDefault();
+
       }
 
 

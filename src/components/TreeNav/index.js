@@ -4,7 +4,10 @@ import styles from './styles.css'
 import * as actions from '../../actions'
 
 const mapStateToProps = (state, ownProps) => {
-  return state.treeState
+  return {
+    ...state.treeState,
+    ...state.globalUIState
+  }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -46,6 +49,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
         dispatch(actions.moveBranch(direction, tree, activeBranch));
         document.getElementById('outlineTree').focus()
+    },
+    toggleSearchBar: (e) => {
+      e.stopPropagation();
+
+      dispatch(actions.toggleSearchBar());
+
     }
   }
 }
@@ -174,8 +183,13 @@ const TreeNavComponent = (props) => (
 
       <li className={styles.treeNavLI}>
         <button
-          className={styles.treeNavButton}
-
+          className={
+            styles.treeNavButton
+          }
+          data-status={
+              props.searchBarDisplayed ? 'active' : ''
+          }
+          onClick={(e) => props.toggleSearchBar(e)}
           >
 
           <i className={'fa fa-search'}></i>

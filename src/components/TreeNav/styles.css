@@ -67,12 +67,16 @@
 .treeNavLI:first-child .treeNavButton:active :global {
   /*border: 1px solid rgba(82,139,255,1)*/
   background-color: rgba(98,134,255,1);
+
 }
 .treeNavButton:focus :global {
   outline: none
 }
 .treeNavButton.sml :global {
   width: 26px;
+}
+.treeNavButton[data-status="active"] {
+  color: rgba(80, 237, 255, 1);
 }
 .smlIcon {
 
@@ -96,10 +100,13 @@
 
   border:0;
 
+  border-radius: 0;
+
   position: relative;
 
   /*transition:all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);*/
 }
+
 .treeNavButton :global i.fa {
 
 }

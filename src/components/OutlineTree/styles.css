@@ -25,9 +25,9 @@ display: inline-flex;
 
   width: 100%;
   color: rgba(157,165,175,0.8);
-    overflow-y: hidden;
+  overflow-y: hidden;
 
-transition:all 0.10s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition:all 0.10s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .treeLI:focus :global {
   outline:0

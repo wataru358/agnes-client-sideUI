@@ -10,13 +10,55 @@ import {
   MOVE_BRANCH,
   CLOSE_BRANCH,
   OPEN_BRANCH,
-  GET_FILENAME
+  GET_FILENAME,
+  TOGGLE_SEARCH_BAR_DISPLAY,
+  SHOW_SEARCH_BAR,
+  HIDE_SEARCH_BAR,
+  UPDATE_SEARCH_INPUT,
+  UPDATE_REPLACE_INPUT
 } from './types';
 
 // @todo
 // [ ] separate actions into different files
 
+/*
+ * UI related
+ * globalUIState
+ */
+export const toggleSearchBar = () => {
+  return {
+    type:TOGGLE_SEARCH_BAR_DISPLAY
+  }
+}
+export const showSearchBar = () => {
+  return {
+    type:SHOW_SEARCH_BAR
+  }
+}
+export const hideSearchBar = () => {
+  return {
+    type:HIDE_SEARCH_BAR
+  }
+}
+export const updateSearchInput = (e) => {
+  return {
+    type:UPDATE_SEARCH_INPUT,
+    value:e.currentTarget.value
+  }
+}
+export const updateReplaceInput = (e) => {
+  return {
+    type:UPDATE_REPLACE_INPUT,
+    value:e.currentTarget.value
+  }
+}
 
+
+
+/*
+ * tree/editor related
+ * treeState
+ */
 export const textBodyUpdate = (textBody) => {
   return {
     type:TEXT_BODY_UPDATE,

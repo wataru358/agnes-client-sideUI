@@ -4,6 +4,7 @@ import styles from './styles.css'
 //import TextEditor from './TextEditor'
 import TextEditor from '../TextEditorDraft'
 import OutlineTree from '../OutlineTree'
+import SearchBar from '../SearchBar'
 
 class TwoPanes extends React.Component {
   constructor(props) {
@@ -51,7 +52,11 @@ class TwoPanes extends React.Component {
 
         </div>
         <div className={styles.panelRight} style={{width:'calc(100vw - '+this.state.divideLineX+'px)'}}>
+
+          <SearchBar />
+
           <TextEditor />
+
         </div>
         <div
           className={styles.panelResizeHandle}
