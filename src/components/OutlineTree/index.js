@@ -12,7 +12,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onBranchClick: (e, activeBranch) => {
         e.stopPropagation();
         if(e.currentTarget.id !== activeBranch){
-          dispatch(actions.updateActiveTree(e.currentTarget.id))
+          dispatch(actions.updateActiveTree(e.currentTarget.id));
+
+          dispatch(actions.updateBranchClickCount());
         }
     },
     onToggleButtonClick:(e,activeBranch,openState,children)=>{

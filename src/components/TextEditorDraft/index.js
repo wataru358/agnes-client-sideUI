@@ -43,7 +43,7 @@ class TextEditorDraftComponent extends React.Component {
     //this.activeBranch =
     //this.state = {editorState: EditorState.createEmpty() };
     this.onChange = (editorState) => {
-      console.log('onChange');
+      //console.log('onChange');
       const textValue = editorState.getCurrentContent().getPlainText();
       this.setState({
         editorState,
@@ -85,27 +85,33 @@ class TextEditorDraftComponent extends React.Component {
 
     return true
   }*/
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     this.watchGutterHeight();
-    return true
-  }
-  componentWillReceiveProps(nextProps, nextState) {
-    //console.log('componentWillReceiveProps:');
-    //console.log(nextProps.activeBranch, this._activeBranch);
-    //console.log(nextProps.textBodies[nextProps.activeBranch]);
-    if(nextProps.activeBranch!==this._activeBranch){
-      this._activeBranch = nextProps.activeBranch;
-      //this.state = {editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))}
-      this.setState({
-        editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))
-
-      });
-
-    }
-    if(this.props.searchBarDisplayed === true && nextProps.searchBarDisplayed === false) {
-      //console.log('searchBar Closed')
+    // console.log(this.props.branchClickCount, nextProps.branchClickCount)
+    if(this.props.branchClickCount > prevProps.branchClickCount) {
+      //console.log('this.props.branchClickCount > prevProps.branchClickCount');
       this.refs.editor.focus();
     }
+
+
+    // return true
+  }
+  componentWillReceiveProps(nextProps, nextState) {
+    // console.log('componentWillReceiveProps:');
+    // console.log(nextProps.activeBranch, this._activeBranch);
+    // console.log(nextProps.textBodies[nextProps.activeBranch]);
+    if(nextProps.activeBranch!==this._activeBranch){
+      this._activeBranch = nextProps.activeBranch;
+      // this.state = {editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))}
+      this.setState({
+        editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))
+      });
+    }
+    if(this.props.searchBarDisplayed === true && nextProps.searchBarDisplayed === false) {
+      // console.log('searchBar Closed')
+      this.refs.editor.focus();
+    }
+
 
 
   }
@@ -115,15 +121,15 @@ class TextEditorDraftComponent extends React.Component {
   // but right now, no way arround.
   _watchGutterHeight(){
     let dataBlockDoms = document.querySelectorAll('div[data-block="true"]')
-    //console.log(dataBlockDoms);
+    // console.log(dataBlockDoms);
     let lineHeightArray = [];
 
     for(let i = 0; dataBlockDoms.length > i; i++){
       lineHeightArray[i] = dataBlockDoms[i].clientHeight / 30;
     }
-    //console.log('_watchGutterHeight: ',lineHeightArray);
-    //console.log(lineHeightArray);
-    //console.log(this.state.lineHeightArray);
+    // console.log('_watchGutterHeight: ',lineHeightArray);
+    // console.log(lineHeightArray);
+    // console.log(this.state.lineHeightArray);
 
     let test = deepEqual(lineHeightArray, this.state.lineHeightArray)
     //console.log(test);

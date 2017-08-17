@@ -15,7 +15,10 @@ import {
   SHOW_SEARCH_BAR,
   HIDE_SEARCH_BAR,
   UPDATE_SEARCH_INPUT,
-  UPDATE_REPLACE_INPUT
+  UPDATE_REPLACE_INPUT,
+  UPDATE_BRANCH_CLICK_COUNT,
+  SEARCH_PREV,
+  SEARCH_NEXT
 } from './types';
 
 // @todo
@@ -52,6 +55,12 @@ export const updateReplaceInput = (e) => {
     value:e.currentTarget.value
   }
 }
+export const updateBranchClickCount = () => {
+  return {
+    type:UPDATE_BRANCH_CLICK_COUNT
+  }
+}
+
 
 
 
