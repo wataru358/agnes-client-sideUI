@@ -4,7 +4,12 @@ import {
   HIDE_SEARCH_BAR,
   UPDATE_SEARCH_INPUT,
   UPDATE_REPLACE_INPUT,
-  UPDATE_BRANCH_CLICK_COUNT
+  UPDATE_BRANCH_CLICK_COUNT,
+  /*SEARCH_PREV,
+  SEARCH_NEXT,*/
+  CLEAR_SEARCH_BUFFER,
+  SEARCH_GOT_NO_MATCH,
+  SHOW_SEARCH
 } from '../actions/types';
 
 const globalUIStateDummy = {
@@ -14,6 +19,9 @@ const globalUIStateDummy = {
     replaceInput:'',
   },
   searchBuffer:[],
+  searchBufferIndex:0,
+  searchGotNoMatch:false,//not ideal...
+  // searchMode:false,
   // to track brach click count,
   // which enables editor component to see if
   // the branch is clicked when updating active tree
@@ -22,6 +30,22 @@ const globalUIStateDummy = {
 
 const globalUIState = (state = globalUIStateDummy, action) => {
   switch (action.type) {
+    case SHOW_SEARCH:
+      return {
+        ...state
+      }
+    case SEARCH_GOT_NO_MATCH:
+      return {
+        ...state,
+        searchGotNoMatch:true
+      }
+    case CLEAR_SEARCH_BUFFER:
+      return {
+        ...state,
+        searchBuffer:[],
+        searchBufferIndex:0,
+        searchGotNoMatch:false
+      }
     case TOGGLE_SEARCH_BAR_DISPLAY:
       return {
         ...state,
@@ -43,7 +67,10 @@ const globalUIState = (state = globalUIStateDummy, action) => {
         searchStatus: {
           ...state.searchStatus,
           searchInput:action.value
-        }
+        },
+        searchBuffer:[],
+        searchBufferIndex:0,
+        searchGotNoMatch:false
       }
     case UPDATE_REPLACE_INPUT:
       return {
@@ -51,7 +78,10 @@ const globalUIState = (state = globalUIStateDummy, action) => {
         searchStatus: {
           ...state.searchStatus,
           replaceInput:action.value
-        }
+        },
+        searchBuffer:[],
+        searchBufferIndex:0,
+        searchGotNoMatch:false
       }
     case UPDATE_BRANCH_CLICK_COUNT:
       return {

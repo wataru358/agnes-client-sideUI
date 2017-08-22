@@ -17,8 +17,11 @@ import {
   UPDATE_SEARCH_INPUT,
   UPDATE_REPLACE_INPUT,
   UPDATE_BRANCH_CLICK_COUNT,
-  SEARCH_PREV,
-  SEARCH_NEXT
+  /*SEARCH_PREV,
+  SEARCH_NEXT,*/
+  SHOW_SEARCH,
+  SEARCH_GOT_NO_MATCH,
+  CLEAR_SEARCH_BUFFER
 } from './types';
 
 // @todo
@@ -28,6 +31,11 @@ import {
  * UI related
  * globalUIState
  */
+export const clearSearchBuffer = () =>{
+  return {
+    type: CLEAR_SEARCH_BUFFER
+  }
+}
 export const toggleSearchBar = () => {
   return {
     type:TOGGLE_SEARCH_BAR_DISPLAY
@@ -49,6 +57,202 @@ export const updateSearchInput = (e) => {
     value:e.currentTarget.value
   }
 }
+
+export const doSearch = (direction, searchInput, searchBuffer, searchBufferIndex, searchMode, tree, activeBranch, textBodies) => {
+
+  /*console.log('direction',direction);
+  console.log('searchInput',searchInput);
+  console.log('searchBuffer',searchBuffer);
+  console.log('searchBufferIndex',searchBufferIndex);
+  console.log('searchMode',searchMode);
+  console.log('tree',tree);
+  console.log('activeBranch',activeBranch);
+  console.log('textBodies',textBodies);
+  console.log('searchBufferIndex',searchBufferIndex);
+  */
+  let nextActiveBranch;
+
+  if(searchBuffer.length === 0) {
+      // so we need to construct searchBuffer,
+      // get proper activeBranch,
+      // set right searchIndex
+      console.log('do the search:');
+      constructSearchBuffer(tree);
+
+      if(searchBuffer.length) {
+          searchBufferIndex = searchBuffer.findIndex((item)=>{
+            return item.tr_id === activeBranch
+          });
+      } else if(searchBuffer.length === 0){
+        return {
+          type:SEARCH_GOT_NO_MATCH
+        }
+      }
+      console.log(searchBufferIndex);
+      if(searchBufferIndex < 0) {
+        // activeBranch is not in the searchBuffer,
+        // so we need to find the branch nearest to activeBranch
+        searchBufferIndex = getNearestBranchInBuffer(direction, activeBranch, tree, searchBuffer, searchInput);
+        nextActiveBranch = searchBuffer[searchBufferIndex].tr_id
+
+      } else {
+        // activeBranch is in the searchBuffer
+        nextActiveBranch = searchBuffer[searchBufferIndex].tr_id;
+      }
+
+  } else {
+    // just move searchBufferIndex one spep toward direction,
+    // we just update:
+    // activeBranch and searchBufferIndex
+    console.log('move searchBufferIndex:');
+    if(direction === 'next') {
+      if(searchBufferIndex === searchBuffer.length - 1) {
+        searchBufferIndex = 0
+      } else {
+        searchBufferIndex = searchBufferIndex + 1
+      }
+
+    } else {
+      if(searchBufferIndex === 0) {
+        searchBufferIndex = searchBuffer.length - 1
+      } else {
+        searchBufferIndex = searchBufferIndex - 1
+      }
+    }
+
+    nextActiveBranch = searchBuffer[searchBufferIndex].tr_id
+
+  }
+
+  return {
+    type:SHOW_SEARCH,
+    value:{
+      searchBuffer,
+      searchBufferIndex,
+      activeBranch:nextActiveBranch
+    }
+  }
+
+
+  /*if(direction === 'next') {
+    return {
+      type:SEARCH_NEXT,
+      value:{
+        searchBuffer,
+        searchBufferIndex,
+        activeBranch:nextActiveBranch
+      }
+    }
+  } else {
+    return {
+      type:SEARCH_PREV,
+      value:{
+        searchBuffer,
+        searchBufferIndex,
+        activeBranch:nextActiveBranch
+      }
+    }
+  }*/
+  function getNearestBranchInBuffer(direction, activeBranch, tree, searchBuffer, searchInput) {
+    // we need to return target index in searchBuffer
+
+    if(getBranchPath(tree, activeBranch).path.toString() === '0') {
+      if(direction === 'next') {
+        return 0
+        // return searchBuffer[0].tr_id
+      } else {
+        return searchBuffer.length - 1;
+      }
+    }
+    let tempArray = [
+      {
+        tr_id:activeBranch,
+        term:searchInput,
+        localIndex:0
+      },
+      ...searchBuffer
+
+      ];
+    for(let i = 0; i < tempArray.length; i++){
+      tempArray[i].path = getBranchPath(tree, tempArray[i].tr_id).path;
+    }
+    //console.log(tempArray);
+    let theLongestLength = tempArray[tempArray.reduce((maxI,el,i,arr) => {
+      //console.log(maxI,el,i,arr);
+      return el.path.length > arr[maxI].path.length ? i : maxI;
+    }, 0)].length;
+    // console.log(theLongestLength);
+
+    for(let i = 0; i < tempArray.length; i++) {
+      let diff = theLongestLength - tempArray[i].path.length;
+
+      if(tempArray[i].path.length < theLongestLength) {
+        tempArray[i].convertedPath = parseInt(tempArray[i].path.toString().replace(/\,/g,''))
+      }
+      for(let j = 0; j < diff; j++) {
+        tempArray[i].convertedPath *= 10;
+      }
+    }
+    console.log(tempArray);
+    //mutable shift
+    let origin = tempArray.shift(),
+    targetIndex,
+    tempDiff;
+    if(direction === 'next') {
+      tempDiff = tempArray[0].convertedPath - origin.convertedPath;
+      targetIndex = tempArray.reduce((trgtI,currentElem,i,array)=>{
+        let currentDiff = currentElem.convertedPath - origin.convertedPath;
+        if( currentDiff < tempDiff) {
+          tempDiff = currentDiff;
+          return i
+        } else {
+          return trgtI
+        }
+
+      }, 0);
+    } else { // direction === 'prev'
+      tempDiff = origin.convertedPath - templArray[0].convertedPath;
+      targetIndex = tempArray.reduce((trgtI,currentElem,i,array)=>{
+        let currentDiff = origin.convertedPath - currentElem.convertedPath;
+        if( currentDiff < tempDiff) {
+          tempDiff = currentDiff;
+          return i
+        } else {
+          return trgtI
+        }
+
+      },0);
+    }
+    return targetIndex;
+  }
+  function constructSearchBuffer(tree) {
+
+    // then we have to walk through entire tree
+    //console.log(tree.tr_id, textBodies, searchInput);
+    if(tree.tr_id !== 'tree_root') {
+      // console.log(searchInput)
+      let result = textBodies[tree.tr_id].match(new RegExp(searchInput,'gi'));
+      // console.log(result);
+      if(result) {
+        result.forEach((item,index)=>{
+          searchBuffer.push({
+            tr_id:tree.tr_id,
+            term:item,
+            localIndex:index
+          });
+        })
+      }
+    }
+    // console.log(tree.children);
+    if(tree.children.length) {
+      tree.children.forEach((item,index)=>{constructSearchBuffer(item)});
+    }
+    // console.log(searchBuffer);
+  }
+
+}
+
+
 export const updateReplaceInput = (e) => {
   return {
     type:UPDATE_REPLACE_INPUT,

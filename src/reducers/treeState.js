@@ -8,7 +8,8 @@ import {
   REMOVE_BRANCH,
   MOVE_BRANCH,
   CLOSE_BRANCH,
-  OPEN_BRANCH
+  OPEN_BRANCH,
+  SHOW_SEARCH
 } from '../actions/types';
 
 import {
@@ -83,6 +84,11 @@ const branchToggle = (state, targetID, openOrClose, focusCurrent) => {
 
 const treeState = (state = treeStateDummy, action) => {
   switch (action.type) {
+    case SHOW_SEARCH:
+      return {
+        ...state,
+        activeBranch:action.value.activeBranch
+      }
     case TEXT_BODY_UPDATE:
     return {
         ...state,

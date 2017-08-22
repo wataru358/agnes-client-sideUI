@@ -4,16 +4,23 @@ import styles from './styles.css'
 import * as actions from '../../actions'
 
 
-
 const mapStateToProps = (state, ownProps) => {
-  return state.globalUIState
+  return {
+    ...state.treeState,
+    ...state.globalUIState
+  }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onFindNextClick:()=>{},
-    onFindPrevClick:()=>{},
-    onReplaceClick:()=>{},
-    onReplaceAllClick:()=>{},
+    onFindNextClick:(e,props)=>{
+      console.log('onFindNextClick: ', props);
+      dispatch(actions.doSearch('next', props.searchStatus.searchInput, props.searchBuffer, props.searchBufferIndex, props.searchMode, props.tree, props.activeBranch, props.textBodies))
+    },
+    onFindPrevClick:(e,props)=>{
+      dispatch(actions.doSearch('prev', props.searchStatus.searchInput, props.searchBuffer, props.searchBufferIndex, props.searchMode, props.tree, props.activeBranch, props.textBodies ))
+    },
+    onReplaceClick:(e)=>{},
+    onReplaceAllClick:(e)=>{},
     onSearchInputChange:(e)=>{
       e.preventDefault();
       e.stopPropagation();
@@ -25,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(actions.updateReplaceInput(e));
 
     },
-    onKeyDown: (e, from)=>{
+    onKeyDown: (e, from, props)=>{
       //console.log(e);
       /*console.log(
         'e.key', e.key
@@ -34,11 +41,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         e.preventDefault();
         dispatch(actions.hideSearchBar());
         //do escape here
-      } else if(e.key === 'Escape'){
+      } else if(e.key === 'Enter' && from === 'search' && props.searchStatus.searchInput.length){
         e.preventDefault();
         //do search or replace here
-
+        dispatch(actions.doSearch('next', props.searchStatus.searchInput, props.searchBuffer, props.searchBufferIndex, props.searchMode, props.tree, props.activeBranch, props.textBodies))
       }
+    },
+    onInputBlur: ()=>{
+      dispatch(actions.clearSearchBuffer());
     }
   }
 }
@@ -82,7 +92,10 @@ const SearchBarComponent = (props) => {
               id="searchInput"
               value={props.searchStatus.searchInput}
               onKeyDown={
-                (e) => {props.onKeyDown(e)}
+                (e) => {props.onKeyDown(e, 'search', props)}
+              }
+              onBlur={
+                () => { props.onInputBlur() }
               }
             />
             <span className={styles.searchInputPlaceHolder}>
@@ -91,12 +104,34 @@ const SearchBarComponent = (props) => {
               }
             </span>
             <span className={styles.searchInputStatus}>
-              1 of 10
+              {
+                props.searchGotNoMatch ? 'no match' : '1 of 10'
+                }
             </span>
           </div>
 
-          <button className={styles.searchBtn}>Find Next</button>
-          <button className={styles.searchBtn}>Find Prev</button>
+          <button
+            className={styles.searchBtn}
+            data-status={
+              props.searchStatus.searchInput.length ? '' : 'disabled'
+            }
+            onClick={(e)=>{props.onFindNextClick(e,props)}}
+
+
+          >
+            Find Next
+          </button>
+
+          <button
+            className={styles.searchBtn}
+            data-status={
+              props.searchStatus.searchInput.length ? '' : 'disabled'
+            }
+            onClick={(e)=>{props.onFindPrevClick(e,props)}}
+          >
+            Find Prev
+          </button>
+
         </div>
         <div className={styles.searchSubSec}>
           <div className={styles.searchInputOuter}>
@@ -108,7 +143,10 @@ const SearchBarComponent = (props) => {
               tabIndex="7"
               value={props.searchStatus.replaceInput}
               onKeyDown={
-                (e) => {props.onKeyDown(e)}
+                (e) => {props.onKeyDown(e, 'replace', props)}
+              }
+              onBlur={
+                () => { props.onInputBlur() }
               }
             />
               <span className={styles.searchInputPlaceHolder}>
