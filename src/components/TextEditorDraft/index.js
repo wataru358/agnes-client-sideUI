@@ -1,9 +1,33 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {Editor, EditorState, ContentState, Modifier} from 'draft-js';
+import {Editor, EditorState, ContentState, Modifier, CompositeDecorator} from 'draft-js';
 import styles from './styles.css'
 import * as actions from '../../actions'
 import deepEqual from 'deep-equal'
+
+/*
+ * start: highlight for searched term
+ */
+
+const SearchHighlight = (props) => {
+  return <span style={{backgroundColor:'rgba(255, 255, 141, .3)'}}>{props.children}</span>;
+};
+
+
+function findWithRegex(regex, contentBlock, callback) {
+  const text = contentBlock.getText();
+  let matchArr, start;
+  while ((matchArr = regex.exec(text)) !== null) {
+    start = matchArr.index;
+    callback(start, start + matchArr[0].length);
+  }
+}
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+/*
+ * end: highlight for searched term
+ */
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -42,8 +66,9 @@ class TextEditorDraftComponent extends React.Component {
     this._activeBranch = props.activeBranch;
     //this.activeBranch =
     //this.state = {editorState: EditorState.createEmpty() };
+
     this.onChange = (editorState) => {
-      //console.log('onChange');
+      console.log('onChange');
       const textValue = editorState.getCurrentContent().getPlainText();
       this.setState({
         editorState,
@@ -90,8 +115,9 @@ class TextEditorDraftComponent extends React.Component {
     // console.log(this.props.branchClickCount, nextProps.branchClickCount)
     if(this.props.branchClickCount > prevProps.branchClickCount) {
       //console.log('this.props.branchClickCount > prevProps.branchClickCount');
-      this.refs.editor.focus();
+      //this.refs.editor.focus();
     }
+
 
 
     // return true
@@ -100,15 +126,94 @@ class TextEditorDraftComponent extends React.Component {
     // console.log('componentWillReceiveProps:');
     // console.log(nextProps.activeBranch, this._activeBranch);
     // console.log(nextProps.textBodies[nextProps.activeBranch]);
-    if(nextProps.activeBranch!==this._activeBranch){
-      this._activeBranch = nextProps.activeBranch;
-      // this.state = {editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))}
-      this.setState({
-        editorState: EditorState.createWithContent(ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch]))
-      });
+    if(nextProps.searchBuffer.length) {
+
+      const compositeDecorator = new CompositeDecorator([
+        {
+          // strategy: handleStrategy,
+          strategy:(contentBlock, callback, contentState) => {
+            let myRegExp = new RegExp(escapeRegExp(nextProps.searchStatus.searchInput), 'gi');
+            findWithRegex(myRegExp, contentBlock, callback);
+          },
+          component: SearchHighlight,
+        }
+      ]);
+      if(nextProps.activeBranch !== this._activeBranch) {
+        this._activeBranch = nextProps.activeBranch;
+        this.setState({
+          editorState: EditorState.set(
+            EditorState.createWithContent(
+              ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch])
+            ),
+            {decorator: compositeDecorator}
+          )
+        });
+      } else {
+        const selectionState = this.state.editorState.getSelection();
+        const currentFocusKey = selectionState.getFocusKey();
+        const currentAnchorKey = selectionState.getAnchorKey();
+        // console.log('selectionState:',selectionState);
+        // console.log('currentFocusKey:',currentFocusKey);
+        // console.log('currentAnchorKey:',currentAnchorKey);
+        /*const newState = EditorState.createWithContent(
+          ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch])
+        );
+        EditorState.forceSelection(
+          newState,
+          selectionState
+        );*/
+        this.setState({
+          editorState:EditorState.set(
+            this.state.editorState,
+            {decorator:compositeDecorator}
+          )
+        });
+        //this.refs.editor.focus();
+
+
+      }
+
+
+    } else {
+
+      if(nextProps.activeBranch !== this._activeBranch) {
+        //console.log('nextProps.activeBranch !== this._activeBranch')
+        this._activeBranch = nextProps.activeBranch;
+        this.setState({
+          editorState: EditorState.createWithContent(
+            ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch])
+          )
+        });
+        //this.refs.editor.focus();
+      }
+
     }
+
+
+
+
+
+
+      /**/
+
+
+
+    /*if(nextProps.searchBuffer.length) {
+      this.setState({
+        editorState: EditorState.createWithContent(
+          ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch])
+        )
+      });
+    } else {
+      this.setState({
+        editorState: EditorState.createWithContent(
+          ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch])
+        )
+      });
+    }*/
+
     if(this.props.searchBarDisplayed === true && nextProps.searchBarDisplayed === false) {
-      // console.log('searchBar Closed')
+       console.log('searchBar Closed')
       this.refs.editor.focus();
     }
 

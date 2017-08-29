@@ -32,7 +32,9 @@ const globalUIState = (state = globalUIStateDummy, action) => {
   switch (action.type) {
     case SHOW_SEARCH:
       return {
-        ...state
+        ...state,
+        searchBuffer:action.value.searchBuffer,
+        searchBufferIndex:action.value.searchBufferIndex
       }
     case SEARCH_GOT_NO_MATCH:
       return {
