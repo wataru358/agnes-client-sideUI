@@ -9,10 +9,15 @@ import deepEqual from 'deep-equal'
  * start: highlight for searched term
  */
 
-const SearchHighlight = (props) => {
-  return <span style={{backgroundColor:'rgba(255, 255, 141, .3)'}}>{props.children}</span>;
+const SearchHighlight = (props, searchBuffer, searchBufferIndex, localIndexCount) => {
+  return (
+    <span
+      className={styles.searchHighlight}
+      data-local-index={localIndexCount}>
+      {props.children}
+    </span>
+  );
 };
-
 
 function findWithRegex(regex, contentBlock, callback) {
   const text = contentBlock.getText();
@@ -113,29 +118,33 @@ class TextEditorDraftComponent extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     this.watchGutterHeight();
     // console.log(this.props.branchClickCount, nextProps.branchClickCount)
-    if(this.props.branchClickCount > prevProps.branchClickCount) {
+    /*if(this.props.branchClickCount > prevProps.branchClickCount) {
       //console.log('this.props.branchClickCount > prevProps.branchClickCount');
       //this.refs.editor.focus();
-    }
+    }*/
 
-
-
-    // return true
   }
   componentWillReceiveProps(nextProps, nextState) {
-    // console.log('componentWillReceiveProps:');
-    // console.log(nextProps.activeBranch, this._activeBranch);
-    // console.log(nextProps.textBodies[nextProps.activeBranch]);
-    if(nextProps.searchBuffer.length) {
 
+    if(nextProps.searchBuffer.length) {
+      let localIndexCount = 0;
       const compositeDecorator = new CompositeDecorator([
         {
           // strategy: handleStrategy,
           strategy:(contentBlock, callback, contentState) => {
             let myRegExp = new RegExp(escapeRegExp(nextProps.searchStatus.searchInput), 'gi');
-            findWithRegex(myRegExp, contentBlock, callback);
-          },
-          component: SearchHighlight,
+
+            {
+              const text = contentBlock.getText();
+              let matchArr, start;
+              while ((matchArr = myRegExp.exec(text)) !== null) {
+                start = matchArr.index;
+                callback(start, start + matchArr[0].length);
+                localIndexCount++;
+              }
+            }
+          },// this component is to hand SearchHighlight info to focus onto
+          component:(props) => { return SearchHighlight(props, nextProps.searchBuffer, nextProps.searchBufferIndex, localIndexCount) },
         }
       ]);
       if(nextProps.activeBranch !== this._activeBranch) {
@@ -149,26 +158,17 @@ class TextEditorDraftComponent extends React.Component {
           )
         });
       } else {
-        const selectionState = this.state.editorState.getSelection();
+        /*const selectionState = this.state.editorState.getSelection();
         const currentFocusKey = selectionState.getFocusKey();
-        const currentAnchorKey = selectionState.getAnchorKey();
-        // console.log('selectionState:',selectionState);
-        // console.log('currentFocusKey:',currentFocusKey);
-        // console.log('currentAnchorKey:',currentAnchorKey);
-        /*const newState = EditorState.createWithContent(
-          ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch])
-        );
-        EditorState.forceSelection(
-          newState,
-          selectionState
-        );*/
+        const currentAnchorKey = selectionState.getAnchorKey();*/
+
         this.setState({
           editorState:EditorState.set(
             this.state.editorState,
             {decorator:compositeDecorator}
           )
         });
-        //this.refs.editor.focus();
+
 
 
       }
@@ -177,14 +177,14 @@ class TextEditorDraftComponent extends React.Component {
     } else {
 
       if(nextProps.activeBranch !== this._activeBranch) {
-        //console.log('nextProps.activeBranch !== this._activeBranch')
+
         this._activeBranch = nextProps.activeBranch;
         this.setState({
           editorState: EditorState.createWithContent(
             ContentState.createFromText(nextProps.textBodies[nextProps.activeBranch])
           )
         });
-        //this.refs.editor.focus();
+
       }
 
     }
