@@ -178,7 +178,7 @@ const TreeNavComponent = (props) => (
           className={styles.treeNavButton}
           onClick={(e) => props.removeBranch(e,props.tree,props.textBodies,props.activeBranch)}
           >
-          <i className={'fa fa-trash' + styles.leftMain}></i>
+          <i className={'fa fa-trash ' + styles.leftMain}></i>
           <i className={'fa fa-remove ' + styles.rightSub7}></i>
         </button>
       </li>
