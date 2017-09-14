@@ -44,7 +44,8 @@ const AboutComponent = (props) => {
               Agnes Outline Processor is a simple yet useful outline processor powered by React / Redux framework.
               It is yet actively being developed for beta test version, and not fully functioning. Yet you can play with Agnes creating a nested note or outline, to feel how it works.
               The goal of the project is to ship the powerful "desktop" outline processor for Mac and Windows alike,
-              borrowing the power of <a href="https://electron.atom.io/" target="_blank">Electron.</a>
+              borrowing the power of <a href="https://electron.atom.io/" target="_blank">Electron.</a><br />
+            If you're not familia with the concept you can look into it <a href="https://en.wikipedia.org/wiki/Outliner" target="_blank">here.</a> 
             </p>
             <ul className={styles.ul}>
               <li className={styles.liTitle}> More features to come:</li>
