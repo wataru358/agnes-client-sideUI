@@ -128,15 +128,7 @@ const TreeNavComponent = (props) => (
         </button>
       </li>
 
-      <li className={styles.treeNavLI}>
-        <button
-          className={styles.treeNavButton}
-          onClick={(e) => props.removeBranch(e,props.tree,props.textBodies,props.activeBranch)}
-          >
-          <i className={'fa fa-file-text-o ' + styles.leftMain}></i>
-          <i className={'fa fa-remove ' + styles.rightSub7}></i>
-        </button>
-      </li>
+
 
 
       <li className={styles.treeNavLI}>
@@ -178,6 +170,16 @@ const TreeNavComponent = (props) => (
           <i className={'fa fa-file-text-o ' + styles.leftMain}></i>
           <i className={'fa fa-arrow-left ' + styles.rightSub4}></i>
           <i className={'fa fa-minus fa-rotate-90 ' + styles.rightSub4b}></i>
+        </button>
+      </li>
+
+      <li className={styles.treeNavLI}>
+        <button
+          className={styles.treeNavButton}
+          onClick={(e) => props.removeBranch(e,props.tree,props.textBodies,props.activeBranch)}
+          >
+          <i className={'fa fa-trash' + styles.leftMain}></i>
+          <i className={'fa fa-remove ' + styles.rightSub7}></i>
         </button>
       </li>
 
