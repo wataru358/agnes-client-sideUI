@@ -1,3 +1,14 @@
+.wrapper a:link,
+.wrapper a:visited,
+.wrapper a:active {
+  color:rgba(102,153,255,1);
+  text-decoration: underline;
+
+}
+.wrapper a:active:hover {
+  color:rgba(102,153,255,.75);
+  text-decoration: none;
+}
 .wrapper {
   width: 880px;
   height: 620px;
@@ -90,8 +101,12 @@
   line-height: 130%;
   padding: 12px 12px 0 24px;
 }
-.liTitle {
+.liTitle,
+.liNote {
   font-size: 12px;
   color: rgba(255,255,255,.75);
   margin-bottom: 8px;
+}
+.liNote {
+  margin: 8px auto 0;
 }
