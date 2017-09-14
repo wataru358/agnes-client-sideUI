@@ -9,7 +9,8 @@ import {
   SEARCH_NEXT,*/
   CLEAR_SEARCH_BUFFER,
   SEARCH_GOT_NO_MATCH,
-  SHOW_SEARCH
+  SHOW_SEARCH,
+  CLOSE_ABOUT_OVERLAY
 } from '../actions/types';
 
 const globalUIStateDummy = {
@@ -25,11 +26,17 @@ const globalUIStateDummy = {
   // to track brach click count,
   // which enables editor component to see if
   // the branch is clicked when updating active tree
-  branchClickCount:0
+  branchClickCount:0,
+  aboutDisplayed: true
 }
 
 const globalUIState = (state = globalUIStateDummy, action) => {
   switch (action.type) {
+    case CLOSE_ABOUT_OVERLAY:
+    return {
+      ...state,
+      aboutDisplayed: false
+    }
     case SHOW_SEARCH:
       return {
         ...state,

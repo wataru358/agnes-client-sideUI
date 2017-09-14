@@ -1,0 +1,97 @@
+.wrapper {
+  width: 880px;
+  height: 620px;
+
+  overflow: scroll;
+
+  background-color: rgba(40,44,52,1);
+  border: 1px solid rgba(171,178,191,.3);
+
+  border-radius: 6px;
+
+  position: fixed;
+  z-index: 11000;
+  top:40px;
+  left: 50%;
+  margin-left: -440px;
+}
+
+.inner {
+  position: relative;
+  padding: 12px 24px;
+}
+
+.closeButton {
+  background: transparent;
+  width: 48px;
+  height: 48px;
+
+  color: rgba(171,178,191,.3);
+
+  line-height: 48px;
+  font-size: 28px;
+
+  border: 0;
+  cursor: pointer;
+  position: absolute;
+  right: -2px;
+  top: -6px;
+
+}
+.closeButton:active,
+.closeButton:focus {
+  outline: 0;
+}
+.title {
+  font-size: 24px;
+  padding-top: 12px;
+
+}
+.smallNote {
+  display: inline-block;
+  font-size: 12px;
+  padding-left: 10px;
+  color: rgba(255,255,255,.6);
+  margin-bottom: 24px;
+}
+.imgHolder {
+  width: 800px;
+  height: 360px;
+
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255, .2);
+
+  overflow: hidden;
+
+  -webkit-box-shadow: 0px 4px 13px 1px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0px 4px 13px 1px rgba(0,0,0,0.4);
+  box-shadow: 0px 4px 13px 1px rgba(0,0,0,0.4);
+}
+.lower {
+  width: 800px;
+  display: flex;
+}
+.description {
+  flex: 0 0 460px;
+
+  color: rgba(255,255,255,.75);
+  font-size: 12px;
+  line-height: 160%;
+
+  padding: 12px;
+  margin-bottom: 12px;
+}
+.ul {
+  flex: 0 0 340px;
+
+  font-size: 11px;
+  color: rgba(255,255,255,.6);
+
+  line-height: 130%;
+  padding: 12px 12px 0 24px;
+}
+.liTitle {
+  font-size: 12px;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 8px;
+}

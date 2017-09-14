@@ -7,3 +7,5 @@ const Overlay = (props) => {
       </div>
   )
 }
+
+export default Overlay

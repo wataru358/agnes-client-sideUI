@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onFindNextClick:(e,props)=>{
-      console.log('onFindNextClick: ', props);
+      //console.log('onFindNextClick: ', props);
       dispatch(actions.doSearch('next', props.searchStatus.searchInput, props.searchBuffer, props.searchBufferIndex, props.searchMode, props.tree, props.activeBranch, props.textBodies))
     },
     onFindPrevClick:(e,props)=>{

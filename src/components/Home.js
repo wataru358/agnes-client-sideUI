@@ -2,10 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Header from './Header'
 import TwoPanes from './TwoPanes'
+import About from './About'
 import * as actions from '../actions'
 
 const mapStateToProps = (state) => {
-  return state.fetchFileName
+  return {
+    ...state.fetchFileName,
+    ...state.globalUIState
+  }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -31,6 +35,9 @@ const HomeLayout = (props) => (
   >
     <Header />
     <TwoPanes />
+    {
+      props.aboutDisplayed ? <About /> : null
+    }
 
   </div>
 )

@@ -21,7 +21,8 @@ import {
   SEARCH_NEXT,*/
   SHOW_SEARCH,
   SEARCH_GOT_NO_MATCH,
-  CLEAR_SEARCH_BUFFER
+  CLEAR_SEARCH_BUFFER,
+  CLOSE_ABOUT_OVERLAY
 } from './types';
 
 // @todo
@@ -31,6 +32,12 @@ import {
  * UI related
  * globalUIState
  */
+ export const closeAboutOverlay = () =>{
+   return {
+     type: CLOSE_ABOUT_OVERLAY
+   }
+ }
+
 export const clearSearchBuffer = () =>{
   return {
     type: CLEAR_SEARCH_BUFFER
