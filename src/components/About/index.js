@@ -38,6 +38,12 @@ const AboutComponent = (props) => {
           <span className={styles.smallNote}>(in Development)</span>
           <div className={styles.imgHolder}>
             <img src={capture01} width="800" height="360"/>
+            <div
+              className={styles.hoverContent}
+              onClick={(e) => props.onCloseBtnClick(e)}
+              >
+              Click Here to Start
+            </div>
           </div>
           <div className={styles.lower}>
             <p className={styles.description}>
@@ -45,7 +51,7 @@ const AboutComponent = (props) => {
               It is yet actively being developed for beta test version, and not fully functioning. Yet you can play with Agnes creating a nested note or outline, to feel how it works.
               The goal of the project is to ship the powerful "desktop" outline processor for Mac and Windows alike,
               borrowing the power of <a href="https://electron.atom.io/" target="_blank">Electron.</a><br />
-            If you're not familia with the concept you can look into it <a href="https://en.wikipedia.org/wiki/Outliner" target="_blank">here.</a> 
+            If you're not familia with the concept you can look into it <a href="https://en.wikipedia.org/wiki/Outliner" target="_blank">here.</a>
             </p>
             <ul className={styles.ul}>
               <li className={styles.liTitle}> More features to come:</li>
